@@ -31,8 +31,15 @@ const viewer = new Viewer(gallery, {
   title: [4, (image, imageData) => `${image.alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`],
   transition: false
 });
-// $wire.on('showModalEdit', (event)=>{
-//   $('#edit_user').modal('show');
-// });
+window.addEventListener('showModalEdit', function(event){
+  $('#edit_user').modal('show');
+});
+window.addEventListener('hideModalEdit', function(event){
+  $('#edit_user').modal('hide');
+});
+window.addEventListener('showDeleteUser', function(event){
+  $('#delete_user').modal('show');
+});
+
 </script>
 @endpush
