@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +38,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function authorType(){
+        return $this->belongsTo(Type::class, 'type', 'id');
+    }
+
+    public function getPictureAttribute($value){
+        if($value){
+            return asset('back/dist/img/authors/'.$value);
+        }else{
+            return asset('back/dist/img/authors/default-avatar.jpg');
+        }
+    }
+
+    public function scopeSearch($query, $term){
+        $term = "%$term%";
+        $query->where(function($query) use ($term){
+            $query->where('name', 'like', $term)
+                ->orWhere('email', 'like', $term);
+        });
+    }
 }
