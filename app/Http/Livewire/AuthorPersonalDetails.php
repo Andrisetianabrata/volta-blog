@@ -39,8 +39,8 @@ class AuthorPersonalDetails extends Component
         ]);
         // Livewire.emit('AuthorProfileHeader');
         // session()->flash('success', 'Yayy your Profile has been updated');
-        // $this->emit('AuthorProfileHeader');
-        // $this->emit('TopHeader');
+        $this->emit('updateAuthorProfileHeader');
+        $this->emit('updateTopHeader');
         toastr()->success('Yayy your Profile has been updated');
         // session()->flash('success', 'Your password has been update successfuly');
     }

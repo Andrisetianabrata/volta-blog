@@ -10,7 +10,7 @@ class AuthorProfileHeader extends Component
 {
     public $author;
     // #[On('AuthorProfileHeader')] 
-    // protected $listeners = ['AuthorProfileHeader'];
+    protected $listeners = ['updateAuthorProfileHeader' => '$refresh'];
     public function mount(){
         $this->author = User::find(auth('web')->id());
     }

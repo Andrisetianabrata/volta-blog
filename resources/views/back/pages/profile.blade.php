@@ -72,7 +72,9 @@ $('#changeAuthorPictureFile').ijaboCropTool({
   withCSRF:['_token','{{ csrf_token() }}'],
   processUrl:'{{ route("author.change-profile-picture") }}',
   onSuccess:function(message, element, status){
-    alert(message);
+    // alert(message);
+    Livewire.emit('updateAuthorProfileHeader');
+    Livewire.emit('updateTopHeader');
   },
   onError:function(message, element, status){
     alert(message);
