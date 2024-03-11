@@ -10,6 +10,7 @@ class AuthorProfileHeader extends Component
 {
     public $author;
     // #[On('AuthorProfileHeader')] 
+    // protected $listeners = ['AuthorProfileHeader'];
     public function mount(){
         $this->author = User::find(auth('web')->id());
     }

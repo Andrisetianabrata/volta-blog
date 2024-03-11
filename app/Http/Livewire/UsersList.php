@@ -67,7 +67,7 @@ class UsersList extends Component
 
     public function editUser($user){
         dd($user);
-        $this->dispatch('showModalEdit');
+        $this->dispatchBrowserEvent('showModalEdit');
     }
 
     public function render()

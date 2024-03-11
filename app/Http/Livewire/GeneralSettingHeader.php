@@ -12,6 +12,7 @@ class GeneralSettingHeader extends Component
         $this->setting = Setting::find(1);
     }
     // #[On('GeneralSettingHeader')] 
+    // protected $listeners = ['GeneralSettingHeader'];
     public function render()
     {
         return view('livewire.general-setting-header');

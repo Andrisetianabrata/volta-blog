@@ -30,8 +30,8 @@ class AuthorGeneralSettings extends Component
 
         if($update){
             toastr()->success('General settings has been updated succsesfuly');
-            $this->dispatch('GeneralSettingHeader');
-            $this->dispatch('AuthorFooter');
+            // $this->emit('GeneralSettingHeader');
+            // $this->emit('AuthorFooter');
         }else{
             toastr()->error('Opps something wrong');
         }

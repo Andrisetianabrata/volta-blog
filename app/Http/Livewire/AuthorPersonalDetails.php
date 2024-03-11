@@ -37,10 +37,10 @@ class AuthorPersonalDetails extends Component
             'city'=>$this->city,
             'biography'=>$this->biography
         ]);
-        // Livewire.dispatch('AuthorProfileHeader');
+        // Livewire.emit('AuthorProfileHeader');
         // session()->flash('success', 'Yayy your Profile has been updated');
-        $this->dispatch('AuthorProfileHeader');
-        $this->dispatch('TopHeader');
+        // $this->emit('AuthorProfileHeader');
+        // $this->emit('TopHeader');
         toastr()->success('Yayy your Profile has been updated');
         // session()->flash('success', 'Your password has been update successfuly');
     }
