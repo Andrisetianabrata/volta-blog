@@ -105,7 +105,7 @@ class UsersList extends Component
 
     public function deleteUser($users)
     {
-        // dd($users);
+        // dd($this->isOnline());
         $this->selectedUserId = User::find($users['id']);
         // dd($users);
         $path = 'back/dist/img/authors/';
@@ -130,7 +130,10 @@ class UsersList extends Component
     public function render()
     {
         return view('livewire.users-list', [
-            'users' => User::where('name', 'like', '%' . $this->search . '%')->orderBy('type', 'ASC')->paginate($this->perpage),
+            'users' => User::with('authorType')
+                        ->where('name', 'like', '%' . $this->search . '%')
+                        ->orderBy('type', 'ASC')
+                        ->paginate($this->perpage),
             // 'userSelectedDelete' => User::find()
         ]);
     }
