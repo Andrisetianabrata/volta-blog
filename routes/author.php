@@ -21,6 +21,7 @@ Route::prefix('author')->name('author.')->group(function () {
     Route::post('/change-blog-logo-dark', [AuthorController::class, 'changeBlogLogoDark'])->name('change-blog-logo-dark');
     Route::post('/change-blog-favicon', [AuthorController::class, 'changeBlogFavicon'])->name('change-blog-favicon');
     Route::view('/users', 'back.pages.users')->name('users');
+    Route::view('/categories', 'back.pages.categories')->name('categories');
 
   });
 });
