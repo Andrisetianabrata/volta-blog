@@ -31,14 +31,17 @@ const viewer = new Viewer(gallery, {
   title: [4, (image, imageData) => `${image.alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`],
   transition: false
 });
+var jq = jQuery.noConflict();
+
+// Use 'jq' instead of '$'
 window.addEventListener('showModalEdit', function(event){
-  $('#edit_user').modal('show');
+  jq('#edit_user').modal('show');
 });
 window.addEventListener('hideModalEdit', function(event){
-  $('#edit_user').modal('hide');
+  jq('#edit_user').modal('hide');
 });
 window.addEventListener('showDeleteUser', function(event){
-  $('#delete_user').modal('show');
+  jq('#delete_user').modal('show');
 });
 
 </script>
