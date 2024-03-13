@@ -18,9 +18,8 @@
     }
     </style>
 @endpush
+
 @section('content')
-
-
 @livewire('users-list')
 @endsection
 
