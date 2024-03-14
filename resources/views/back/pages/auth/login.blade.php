@@ -7,9 +7,9 @@
       <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{asset('back/dist/img/logo-favicon/logo-1.png')}}" height="50" alt=""></a>
     </div>
     @livewire('author-login-form')
-    <div class="text-center text-muted mt-3">
+    {{-- <div class="text-center text-muted mt-3">
       Don't have account yet? <a href="./sign-up.html" tabindex="-1">Sign up</a>
-    </div>
+    </div> --}}
   </div>
 </div>
 @endsection
