@@ -52,8 +52,8 @@
             @yield('content')
           </div>
         </div>
-        @include('back.layouts.inc.footer')
       </div>
+      @include('back.layouts.inc.footer')
     </div>
 
     <!-- Libs JS -->
@@ -66,33 +66,6 @@
     <!-- Tabler Core -->
     <script src="./back/dist/js/tabler.min.js" defer></script>
     <script src="./back/dist/js/demo.min.js" defer></script>
-    {{-- <script>
-      // Mendapatkan elemen body
-      var body = document.querySelector('body');
-      
-      // Memeriksa apakah ada tema yang disimpan di localStorage dan menerapkannya
-      if(localStorage.getItem('theme')) {
-        body.setAttribute('data-bs-theme', localStorage.getItem('theme'));
-      }
-      
-      // Fungsi untuk mengubah tema menjadi 'light' dan menyimpannya di localStorage
-      function setLightTheme() {
-        body.setAttribute('data-bs-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
-      
-      // Fungsi untuk mengubah tema menjadi 'dark' dan menyimpannya di localStorage
-      function setDarkTheme() {
-        body.setAttribute('data-bs-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-      
-      // Menambahkan event listener ke tombol 'light'
-      document.getElementById('light').addEventListener('click', setLightTheme);
-      
-      // Menambahkan event listener ke tombol 'dark'
-      document.getElementById('dark').addEventListener('click', setDarkTheme);
-    </script> --}}
     @stack('scripts')
     @livewireScripts
   </body>
