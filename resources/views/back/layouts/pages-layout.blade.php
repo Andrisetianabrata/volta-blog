@@ -66,7 +66,7 @@
     <!-- Tabler Core -->
     <script src="./back/dist/js/tabler.min.js" defer></script>
     <script src="./back/dist/js/demo.min.js" defer></script>
-    <script>
+    {{-- <script>
       // Mendapatkan elemen body
       var body = document.querySelector('body');
       
@@ -92,7 +92,7 @@
       
       // Menambahkan event listener ke tombol 'dark'
       document.getElementById('dark').addEventListener('click', setDarkTheme);
-    </script>
+    </script> --}}
     @stack('scripts')
     @livewireScripts
   </body>
