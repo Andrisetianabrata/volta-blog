@@ -35,10 +35,8 @@
                   @if ($user->authorType->id == 1 && $user->blocked != 1)
                      <div class="ribbon bg-green">Admin</div>
                   @endif
-                  <div class="card-cover card-cover-blurred text-center" style="background-image: url({{$user->picture}})">
-                     <img class="avatar avatar-xl mb-3 rounded" src="{{$user->picture}}"></img>
-                  </div>
                   <div class="card-body p-4 text-center">
+                     <img class="avatar avatar-xl mb-3 rounded" src="{{$user->picture}}"></img>
                      <h3 class="m-0 mb-1">{{$user->name}}</h3>
                      <div class="text-muted">{{'@'}}{{$user->username}}</div>
                      <div class="mt-3">
