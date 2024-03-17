@@ -26,7 +26,7 @@
     
     @stack('stylesheets')
     @livewireStyles
-    <style>
+    {{-- <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
       	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
@@ -35,7 +35,7 @@
       	font-feature-settings: "cv03", "cv04", "cv11";
       }
       
-    </style>
+    </style> --}}
   </head>
   <body >
     <script src="./back/dist/js/demo-theme.min.js"></script>
@@ -92,7 +92,6 @@
       
       // Menambahkan event listener ke tombol 'dark'
       document.getElementById('dark').addEventListener('click', setDarkTheme);
-  </script>
     </script>
     @stack('scripts')
     @livewireScripts
