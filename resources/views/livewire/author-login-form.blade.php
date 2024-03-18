@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore>
   @if (Session::get('fail'))
     <div class="alert alert-danger">
       {{ Session::get('fail') }}
