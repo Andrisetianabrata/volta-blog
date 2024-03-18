@@ -7,12 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 
-use Livewire\Attributes\On;
-use Livewire\Livewire;
-
-// use Intervention\Image\Facades\Image as Image;
-
-
 class AuthorController extends Controller
 {
     public function deleteAuthorPictureFile()

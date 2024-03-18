@@ -13,6 +13,11 @@ class SubCategory extends Model
 
     public function parentCategory()
     {
-        return $this->hasOne(Category::class,'id', 'parent_category');
+        return $this->hasOne(Category::class, 'id', 'parent_category');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category_id', 'id');
     }
 }

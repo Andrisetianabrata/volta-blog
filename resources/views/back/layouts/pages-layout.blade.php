@@ -26,16 +26,8 @@
     
     @stack('stylesheets')
     @livewireStyles
-    {{-- <style>
-      @import url('https://rsms.me/inter/inter.css');
-      :root {
-      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-      }
-      body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
-      }
-      
-    </style> --}}
+    <script src="./ckeditor/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> --}}
   </head>
   <body >
     <script src="./back/dist/js/demo-theme.min.js"></script>

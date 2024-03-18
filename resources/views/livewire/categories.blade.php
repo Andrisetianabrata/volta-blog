@@ -11,7 +11,7 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Total</th>
+                        <th>Child</th>
                         <th class="w-1"></th>
                       </tr>
                     </thead>
@@ -21,7 +21,7 @@
                         <td data-label="Category Name">
                           <div class="font-weight-medium">{{$category->category_name}}</div>
                         </td>
-                        <td data-label="Total">
+                        <td data-label="Child">
                           <div>{{$category->subCategories->count()}}</div>
                         </td>
                         <td>
@@ -98,7 +98,7 @@
                             </div>
                           </td>
                           <td data-label="Post Total">
-                            <div>4</div>
+                            <div>{{$subCategory->posts->count()}}</div>
                           </td>
                           <td>
                             <div class="btn-list flex-nowrap">

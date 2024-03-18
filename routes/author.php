@@ -23,5 +23,9 @@ Route::prefix('author')->name('author.')->group(function () {
     Route::view('/users', 'back.pages.users')->name('users');
     Route::view('/categories', 'back.pages.categories')->name('categories');
 
+    Route::prefix('posts')->name('posts.')->group(function (){
+      Route::view('/add-posts', 'back.pages.add-posts')->name('add-post');
+      // Route::post('/create', [AuthorController::class, 'createPost'])->name('create');
+    });
   });
 });
