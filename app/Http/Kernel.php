@@ -37,7 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\UserUniqueFilesFolder::class,
-            \App\Http\Middleware\ChekBlockedUser::class,
+            // \App\Http\Middleware\ChekBlockedUser::class,
         ],
 
         'api' => [
