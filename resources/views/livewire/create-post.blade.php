@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore>
     {{-- Success is as dangerous as failure. --}}
     <form action="" method="post" wire:submit.prevent='createPost()' enctype="multipart/form-data">
         @csrf

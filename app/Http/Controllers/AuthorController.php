@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -43,7 +44,9 @@ class AuthorController extends Controller
     }
     public function index(Request $request)
     {
-        return view('back.pages.home');
+        return view('back.pages.home', [
+            'post'=>Post::orderBy('id', 'desc')->first()
+        ]);
     }
 
     public function logout()
@@ -122,7 +125,7 @@ class AuthorController extends Controller
         if($upload){
             return response()->json(['status'=>1, 'msg'=>'Image has been cropped successfully.', 'name'=>$new_image_name]);
         }else{
-                return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
+            return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
         }   
     }
 }

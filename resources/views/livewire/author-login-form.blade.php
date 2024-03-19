@@ -1,15 +1,17 @@
-<div wire:ignore>
-  @if (Session::get('fail'))
-    <div class="alert alert-danger">
-      {{ Session::get('fail') }}
-    </div>
-
-    @if (Session::get('success'))
-    <div class="alert alert-success">
-      {{ Session::get('success') }}
-    </div>
-  @endif
-  @endif
+<div>
+  <div wire:ignore.self>
+    @if (Session::get('fail'))
+      <div class="alert alert-danger">
+        {{ Session::get('fail') }}
+      </div>
+    @endif
+  
+      @if (Session::get('success'))
+      <div class="alert alert-success">
+        {{ Session::get('success') }}
+      </div>
+      @endif
+  </div>
     <div class="card card-md">
         <div class="card-body">
           <h2 class="h2 text-center mb-4">Login to your account</h2>

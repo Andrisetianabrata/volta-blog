@@ -17,7 +17,8 @@ class TopHeader extends Component
     public function render()
     {
         return view('livewire.top-header',[
-            'author' => User::find(auth('web')->id())
+            'author' => User::find(auth('web')->id()),
+            'userType'=>auth()->user()->type,
         ]);
     }
 }

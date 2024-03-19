@@ -130,8 +130,7 @@ class UsersList extends Component
     public function render()
     {
         return view('livewire.users-list', [
-            'users' => User::with('authorType')
-                        ->where('name', 'like', '%' . $this->search . '%')
+            'users' => User::search(trim($this->search))
                         ->orderBy('type', 'ASC')
                         ->paginate($this->perpage),
             // 'userSelectedDelete' => User::find()

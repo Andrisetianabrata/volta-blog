@@ -21,11 +21,11 @@ Route::prefix('author')->name('author.')->group(function () {
     Route::post('/change-blog-logo-dark', [AuthorController::class, 'changeBlogLogoDark'])->name('change-blog-logo-dark');
     Route::post('/change-blog-favicon', [AuthorController::class, 'changeBlogFavicon'])->name('change-blog-favicon');
     Route::view('/users', 'back.pages.users')->name('users');
-    Route::view('/categories', 'back.pages.categories')->name('categories');
-
+    
     Route::prefix('posts')->name('posts.')->group(function (){
       Route::view('/add-posts', 'back.pages.add-posts')->name('add-post');
-      // Route::post('/create', [AuthorController::class, 'createPost'])->name('create');
+      Route::view('/all-posts', 'back.pages.all-posts')->name('all-post');
+      Route::view('/categories', 'back.pages.categories')->name('categories');
     });
   });
 });

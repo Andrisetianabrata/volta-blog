@@ -6,6 +6,8 @@ use App\Models\Post;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class CreatePost extends Component
 {
@@ -23,10 +25,29 @@ class CreatePost extends Component
             'post_category'=>'required|exists:sub_categories,id',
             'post_thumbnail'=>'required|mimes:jpeg,jpg,png',
         ]);
+        
         $fileName = $this->post_thumbnail->getClientOriginalName();
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
         $thumbnailSlug = uniqid().'-'.Str::slug(pathinfo($fileName, PATHINFO_FILENAME)).'.'.$extension;
-        $saved = $this->post_thumbnail->storeAs('/public/images/thumbnails', $thumbnailSlug);
+        // $saved = $this->post_thumbnail->storeAs('/public/images/thumbnails', $thumbnailSlug);
+        $image = Image::make($this->post_thumbnail);
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+
+        $aspectRatio = 2 / 1;
+        $cropWidth = $width;
+        $cropHeight = round($cropWidth / $aspectRatio);
+        if ($cropHeight > $height) {
+            $cropHeight = $height;
+            $cropWidth = $cropHeight * $aspectRatio;
+        }
+
+        $x = round(($width - $cropWidth) / 2);
+        $y = round(($height - $cropHeight) / 2);
+        $croppedImage = $image->crop($cropWidth, $cropHeight, $x, $y);
+        $saved = Storage::disk('public')->put('images/thumbnails/'.$thumbnailSlug, $croppedImage->stream());
+
+
         if($saved){
             $post = new Post();
             $post->author_id = auth()->id();

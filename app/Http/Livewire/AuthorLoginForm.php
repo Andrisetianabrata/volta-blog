@@ -21,7 +21,7 @@ class AuthorLoginForm extends Component
         if ($fieldtype == 'email') {
             $this->validate([
                 'login_id' => 'required|email',
-                'password' => 'required|min:6',
+                'password' => 'required',
 
             ], [
                 'login_id' => 'Email or Username is required',
@@ -31,7 +31,7 @@ class AuthorLoginForm extends Component
         } else {
             $this->validate([
                 'login_id' => 'required|min:3',
-                'password' => 'required|min:6',
+                'password' => 'required',
 
             ], [
                 'login_id' => 'Email or Username is required',

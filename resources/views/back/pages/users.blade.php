@@ -2,8 +2,6 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Users')
 
 @push('stylesheets')
-		<link rel="stylesheet" href="/back/dist/libs/viewerjs/dist/viewer.css"/>
-    <script src="/back/dist/libs/viewerjs/dist/viewer.min.js"></script>
     <style>
       .viewer-download {
       color: #fff;

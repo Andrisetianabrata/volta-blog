@@ -26,10 +26,13 @@
     
     @stack('stylesheets')
     @livewireStyles
+		<link rel="stylesheet" href="/back/dist/libs/viewerjs/dist/viewer.css"/>
+    <script src="/back/dist/libs/viewerjs/dist/viewer.min.js"></script>
+    <link href="./prism.css" rel="stylesheet" />
     <script src="./ckeditor/ckeditor.js"></script>
     {{-- <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> --}}
   </head>
-  <body >
+  <body class="line-numbers" >
     <script src="./back/dist/js/demo-theme.min.js"></script>
     <div class="page">
       <!-- Navbar -->
@@ -40,7 +43,7 @@
         <!-- Page body -->
         <div class="page-body">
           @yield('Header')
-          <div class="container-xl">
+          <div class="container-xl" id="galery">
             @yield('content')
           </div>
         </div>
@@ -54,10 +57,11 @@
     <script src="./back/dist/libs/jsvectormap/dist/maps/world.js" defer></script>
     <script src="./back/dist/libs/jsvectormap/dist/maps/world-merc.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
-    <script src="{{asset('back/dist/libs/ijaboCropTool/ijaboCropTool.min.js')}}"></script>
+    <script src="{{asset('back/dist/libs/ijaboCropTool/ijaboCropTool.min.js')}}"></script> 
     <!-- Tabler Core -->
     <script src="./back/dist/js/tabler.min.js" defer></script>
     <script src="./back/dist/js/demo.min.js" defer></script>
+    <script src="prism.js"></script>
     @stack('scripts')
     @livewireScripts
   </body>

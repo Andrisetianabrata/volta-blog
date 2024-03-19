@@ -39,14 +39,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function authorType(){
+    public function authorType()
+    {
         return $this->belongsTo(Type::class, 'type', 'id');
     }
 
-    public function getPictureAttribute($value){
-        if($value){
-            return asset('back/dist/img/authors/'.$value);
-        }else{
+    public function getPictureAttribute($value)
+    {
+        if ($value) {
+            return asset('back/dist/img/authors/' . $value);
+        } else {
             return asset('back/dist/img/authors/default-avatar.jpg');
         }
     }
@@ -57,5 +59,10 @@ class User extends Authenticatable
             $query->where('name', 'like', $term)
                 ->orWhere('email', 'like', $term);
         });
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id', 'id');
     }
 }
