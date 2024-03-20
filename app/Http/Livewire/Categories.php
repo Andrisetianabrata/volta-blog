@@ -71,7 +71,7 @@ class Categories extends Component
     public function addSubCategory()
     {
         $this->validate([
-            'parent_category' => 'required',
+            // 'parent_category' => 'required',
             'subcategory_name' => 'required|unique:sub_categories,subcategory_name'
         ]);
 
@@ -103,14 +103,14 @@ class Categories extends Component
     {
         if ($this->updateSubCategoryMode) {
             $this->validate([
-                'parent_category' => 'required',
+                // 'parent_category' => 'required',
                 'subcategory_name' => 'required|unique:sub_categories,subcategory_name,' . $this->selected_subCategory_id,
             ]);
 
             $subCategory = SubCategory::findOrFail($this->selected_subCategory_id);
             $subCategory->subcategory_name = $this->subcategory_name;
             $subCategory->slug = Str::slug($this->subcategory_name);
-            $subCategory->parent_category = $this->parent_category;
+            $subCategory->parent_category = $this->parent_category == null ? null : $this->parent_category;
             $updated = $subCategory->save();
 
             if ($updated) {
@@ -154,12 +154,19 @@ class Categories extends Component
     public function deleteSubCategory($subcategory)
     {
         // dd($subcategory);
-        $this->selected_subCategory_id = $subcategory;
-        $this->dispatchBrowserEvent('showDeleteSubCategory');
+        $subCategory = SubCategory::findOrFail($subcategory);
+        if ($subCategory->posts->count() != 0) {
+            // dd('true');
+            toastr()->error('Canot be delete. This category contain '.$subCategory->posts->count().' post(s)', 'Cannot detele');
+        }else{
+            // dd('false');
+            $this->selected_subCategory_id = $subcategory;
+            $this->dispatchBrowserEvent('showDeleteSubCategory');
+        }
     }
     public function deleteSubCategoryAction()
     {
-        $subcategory = SubCategory::find($this->selected_subCategory_id);
+        $subcategory = SubCategory::findOrFail($this->selected_subCategory_id);
         $deleted = $subcategory->delete();
 
         if($deleted){

@@ -92,9 +92,8 @@
                               @if(isset($subCategory->parentCategory->category_name))
                                 {{$subCategory->parentCategory->category_name}}
                               @else
-                                <span class="text-danger">Please update</span>
+                                {{-- <span class="text-danger">Please update</span> --}}
                               @endif
-                              
                             </div>
                           </td>
                           <td data-label="Post Total">
