@@ -16,6 +16,15 @@ class AllPosts extends Component
     public $authorSelecor = null;
     public $shortBy = 'desc';
     
+    public function editPost($id)
+    {
+      $post = Post::find($id);
+      return redirect()->to(route('author.posts.edit-post', [
+        'post_id' => $post->id,
+        'author_id'=>$post->author_id
+      ]));
+    }
+
     public function render()
     {
         return view('livewire.all-posts',[

@@ -24,6 +24,7 @@ Route::prefix('author')->name('author.')->group(function () {
     
     Route::prefix('posts')->name('posts.')->group(function (){
       Route::view('/add-posts', 'back.pages.add-posts')->name('add-post');
+      Route::view('/edit-posts', 'back.pages.edit-posts')->name('edit-post');
       Route::view('/all-posts', 'back.pages.all-posts')->name('all-post');
       Route::view('/categories', 'back.pages.categories')->name('categories');
     });
