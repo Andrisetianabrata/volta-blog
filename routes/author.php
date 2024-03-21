@@ -11,7 +11,7 @@ Route::prefix('author')->name('author.')->group(function () {
   });
 
   Route::middleware(['web', 'auth'])->group(function(){
-    Route::get('/home', [AuthorController::class, 'index'])->name('home');
+    // Route::get('/home', [AuthorController::class, 'index'])->name('home');
     Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
     Route::view('/profile', 'back.pages.profile')->name('profile');
     Route::post('/change-profile-picture', [AuthorController::class, 'changeAuthorPictureFile'])->name('change-profile-picture');
