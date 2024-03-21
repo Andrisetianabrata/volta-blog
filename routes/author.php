@@ -15,7 +15,6 @@ Route::prefix('author')->name('author.')->group(function () {
     Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
     Route::view('/profile', 'back.pages.profile')->name('profile');
     Route::post('/change-profile-picture', [AuthorController::class, 'changeAuthorPictureFile'])->name('change-profile-picture');
-    Route::post('/delete-profile-picture', [AuthorController::class, 'deleteAuthorPictureFile'])->name('delete-profile-picture');
     Route::view('/settings', 'back.pages.settings')->name('settings');
     Route::post('/change-blog-logo-white', [AuthorController::class, 'changeBlogLogoWhite'])->name('change-blog-logo-white');
     Route::post('/change-blog-logo-dark', [AuthorController::class, 'changeBlogLogoDark'])->name('change-blog-logo-dark');

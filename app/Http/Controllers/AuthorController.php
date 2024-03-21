@@ -10,16 +10,6 @@ use App\Models\User;
 
 class AuthorController extends Controller
 {
-    public function deleteAuthorPictureFile()
-    {
-        $user = User::find(auth('web')->id());
-        if ($user->update(['picture' => null])) {
-            toastr()->success('Profile picture has been deleted');
-            return redirect()->route('author.profile');
-        } else {
-            return redirect()->route('author.profile');
-        }
-    }
 
     public function changeAuthorPictureFile(Request $request)
     {

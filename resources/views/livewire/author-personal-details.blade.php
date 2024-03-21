@@ -1,114 +1,223 @@
 <div>
-    <form action="" method="POST" wire:submit.prevent='UpdateDetails()'>
-        <div class="row">
-
-          @if (Session::get('fail'))
-          <div class="alert alert-danger">
-          {{ Session::get('fail') }}
-          </div>
-          @endif
-      
-          @if (Session::get('success'))
-          <div class="alert alert-success">
-          {{ Session::get('success') }}
-          </div>
-          @endif
-          
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Name</label>
-            <div class="input-icon mb-1">
-              <span class="input-icon-addon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-signature" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17c3.333 -3.333 5 -6 5 -8c0 -3 -1 -3 -2 -3s-2.032 1.085 -2 3c.034 2.048 1.658 4.877 2.5 6c1.5 2 2.5 2.5 3.5 1l2 -3c.333 2.667 1.333 4 3 4c.53 0 2.639 -2 3 -2c.517 0 1.517 .667 3 2" /></svg>
-              </span>
-              <input type="text" value="" class="form-control" placeholder="Name" wire:model='name'>
+  <form class="card" action="" method="POST" wire:submit.prevent='UpdateDetails()'>
+    <div class="row g-0">
+      <div class="col d-flex flex-column">
+        <div class="card-body">
+          <h2 class="mb-4">{{$author->name}} | {{$author->authorType->name}}</h2>
+          <h3 class="card-title">Profile Details</h3>
+          <div class="row align-items-center">
+            <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url({{url($author->picture)}})"></span>
             </div>
-            @error('name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Username</label>
-            <div class="input-icon mb-1">
-              <span class="input-icon-addon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
-              </span>
-              <input type="text" value="" class="form-control" placeholder="Username" wire:model='username'>
+            <div class="col-auto">
+              <input type="file" name='file' id='changeAuthorPictureFile' class="d-none" onchange="this.dispatchEvent(new InputEvent('input'))">
+              <a href="#" class="btn" onclick="event.preventDefault();document.getElementById('changeAuthorPictureFile').click();">
+              Change Avatar
+              </a>
             </div>
-            @error('username')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Email</label>
-            <div class="input-icon mb-1">
-              <span class="input-icon-addon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
-              </span>
-              <input type="text" value="" class="form-control" placeholder="Email" wire:model='email' disabled>
+            <div class="col-auto"><button href="" wire:click.prevent='deleteAuthorPictureFile' class="btn btn-ghost-danger">
+              Delete avatar
+              </button>
             </div>
-            @error('email')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
           </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Date of birth</label>
-            <div class="input-icon mb-1">
+          <h3 class="card-title mt-4">Profile</h3>
+          <div class="row g-4">
+            <div class="col-md">
+              <label class="form-label">Name</label>
+              <div class="input-icon mb-1">
                 <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-month" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-signature" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 17c3.333 -3.333 5 -6 5 -8c0 -3 -1 -3 -2 -3s-2.032 1.085 -2 3c.034 2.048 1.658 4.877 2.5 6c1.5 2 2.5 2.5 3.5 1l2 -3c.333 2.667 1.333 4 3 4c.53 0 2.639 -2 3 -2c.517 0 1.517 .667 3 2" />
+                  </svg>
+                </span>
+                <input type="text" value="" class="form-control" placeholder="Name" wire:model='name'>
+              </div>
+              @error('name')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
+            </div>
+            <div class="col-md">
+              <label class="form-label">Username</label>
+              <div class="input-icon mb-1">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                  </svg>
+                </span>
+                <input type="text" value="" class="form-control" placeholder="Username" wire:model='username'>
+              </div>
+              @error('username')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
+            </div>
+            <div class="col-md">
+              <label class="form-label">Date of birth</label>
+              <div class="input-icon mb-1">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-month" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                    <path d="M16 3v4" />
+                    <path d="M8 3v4" />
+                    <path d="M4 11h16" />
+                    <path d="M7 14h.013" />
+                    <path d="M10.01 14h.005" />
+                    <path d="M13.01 14h.005" />
+                    <path d="M16.015 14h.005" />
+                    <path d="M13.015 17h.005" />
+                    <path d="M7.01 17h.005" />
+                    <path d="M10.01 17h.005" />
+                  </svg>
                 </span>
                 <input type="text" name="input-mask" class="form-control" data-mask="00/00/0000" data-mask-visible="true" placeholder="00/00/0000" autocomplete="off" wire:model='birth'>
               </div>
               @error('birth')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">City</label>
-            <div class="input-icon mb-1">
-              <span class="input-icon-addon">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-skyscraper" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" /></svg>
-              </span>
-              <input type="text" value="" class="form-control" placeholder="City" wire:model='city'>
+              <span class="text-danger">{{$message}}</span>
+              @enderror
             </div>
-            @error('city')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Biograpy</label>
-            <textarea class="form-control" name="biograpy" rows="6" placeholder="Here tell us your story >_<" style="height: 165px;" wire:model='biography' wire:model='biograpy'></textarea>
-            <div class="col-6 col-sm-4 col-md-2 col-xl-auto py-3">
+            <div class="col-md">
+              <label class="form-label">City</label>
+              <div class="input-icon mb-1">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-skyscraper" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 21l18 0" />
+                    <path d="M5 21v-14l8 -4v18" />
+                    <path d="M19 21v-10l-6 -4" />
+                    <path d="M9 9l0 .01" />
+                    <path d="M9 12l0 .01" />
+                    <path d="M9 15l0 .01" />
+                    <path d="M9 18l0 .01" />
+                  </svg>
+                </span>
+                <input type="text" value="" class="form-control" placeholder="City" wire:model='city'>
+              </div>
+              @error('city')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
             </div>
           </div>
-          
-          <div class="mb-3">
-            <button type="submit" class="btn btn-rss w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-              Save Changes
-            </button>
+          <h3 class="card-title mt-4">Biography</h3>
+          <p class="card-subtitle">Your story or your quote will be display here.</p>
+          <div>
+            <div class="row g-1">
+              <div class="">
+                <textarea class="form-control" name="biograpy" rows="6" placeholder="Here tell us your story >_<" style="height: 165px;" wire:model='biography' wire:model='biograpy'></textarea>
+              </div>
+            </div>
           </div>
-
-          <div class="mb-3">
-            <input type="file" name='file' id='changeAuthorPictureFile' class="d-none" onchange="this.dispatchEvent(new InputEvent('input'))">
-            <a href="#" class="btn btn-primary w-100" onclick="event.preventDefault();document.getElementById('changeAuthorPictureFile').click();">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01" /><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" /><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" /><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" /></svg>
-              Change Profile Picture
+          <h3 class="card-title mt-4">Email</h3>
+          <p class="card-subtitle">This contact will be shown to others publicly, so choose it carefully.</p>
+          <div>
+            <div class="row g-2">
+              <div class="col-auto">
+                <div class="input-icon">
+                  <span class="input-icon-addon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+                      <path d="M3 7l9 6l9 -6" />
+                    </svg>
+                  </span>
+                  <input type="text" value="" class="form-control" placeholder="Email" wire:model='email' disabled>
+                </div>
+              </div>
+              <div class="col-auto"><button disabled href="#" class="btn btn-primary">
+                Change
+                </button>
+              </div>
+            </div>
+          </div>
+          <h3 class="card-title mt-4">Password</h3>
+          <p class="card-subtitle">You can set a permanent password if you don't want to use temporary login codes.</p>
+          <div>
+            <a href="#" wire:click.prevent='changePassword' class="btn">
+            Set new password
             </a>
           </div>
         </div>
-      </form>
-      <div class="mb-3">
-        <form action="{{route("author.delete-profile-picture")}}" id="deletePicture" method="POST">
-          @csrf
-          <button class="btn btn-danger w-100" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-            Delete Profile Picture
-          </button>
-        </form>
+        <div class="card-footer bg-transparent mt-auto">
+          <div class="btn-list justify-content-end">
+            <button type="submit" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                <path d="M16 5l3 3" />
+              </svg>
+              Save Changes
+            </button>
+          </div>
+        </div>
       </div>
+    </div>
+  </form>
+
+  <div wire:ignore.self class="modal modal-blur fade" id="change_password" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Set new password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="" wire:submit.prevent='UpdatePassword()'>
+            <div class="mb-3">
+              <label class="form-label">Current passsword</label>
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" /><path d="M15 9h.01" /></svg>
+                </span>
+                <input type="password" value="" class="form-control" placeholder="Current Password" wire:model='current_password'>
+              </div>
+              @error('current_password')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
+           </div>
+           <div class="mb-3">
+              <label class="form-label">New Password</label>
+              <div class="input-icon">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" /><path d="M15 9h.01" /></svg>
+                </span>
+                <input type="password" value="" class="form-control" placeholder="New Password" wire:model='new_password' id="password">
+              </div>
+              @error('new_password')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
+           </div>
+           <div class="mb-3">
+              <label class="form-label">Confirm new Password</label>
+              <div class="input-icon mb-1">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" /><path d="M15 9h.01" /></svg>
+                </span>
+                <input type="password" value="" class="form-control" placeholder="Confirm new Password" wire:model='confirm_password' id="password">
+              </div>
+              @error('confirm_password')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
+           </div>
+          </form>
+        </div>
+        <div class="modal-footer mt-4">
+          <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+          Cancel
+          </a>
+          <button wire:click.prevent='UpdatePassword()' class="btn btn-primary ms-auto">
+            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+            <svg class="icon me-2" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+              <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+              <path d="M16 5l3 3" />
+            </svg>
+            Update password
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
