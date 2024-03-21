@@ -21,6 +21,15 @@
 @endsection
 @push('scripts')
 <script>
+  window.addEventListener('beforeunload', function (e) {
+    // Batalkan event default
+    e.preventDefault();
+    // Chrome memerlukan returnValue diatur
+    e.returnValue = '';
+  });
+</script>
+  
+<script>
   // Mengambil referensi dari input file dan div yang akan menampilkan gambar
   const fileInput = document.querySelector('.form-control[type="file"]');
   const imageDisplay = document.querySelector('.img-responsive');
