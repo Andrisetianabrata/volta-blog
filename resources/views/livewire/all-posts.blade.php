@@ -16,7 +16,7 @@
     <div class="row g-2 align-items-center mb-3">
         <div class="col">
             <h2 class="page-title">
-            Users
+            Posts
             </h2>
             <!-- <div class="text-muted mt-1">1-18 of 413 people</div> -->
         </div>
@@ -86,15 +86,17 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        <a wire:click='editPost({{$post->id}})' class="card-btn">
-                        <svg class="icon me-2 text-muted" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                        Edit
+                        <a href="#" wire:click.prevent='editPost({{$post->id}})' class="card-btn">
+                           <!-- Download SVG icon from http://tabler-icons.io/i/mail -->
+                           <svg class="icon me-2 text-muted" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                           Edit
                         </a>
-                        <a class="card-btn text-danger">
-                        <svg class="icon me-2 text-danger" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                        Delete
+                        <a href="#" class="card-btn text-danger" wire:click.prevent='deletePost({{$post->id}})'>
+                           <!-- Download SVG icon from http://tabler-icons.io/i/phone -->
+                           <svg class="icon me-2 text-danger" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                           Delete
                         </a>
-                    </div>
+                     </div>
                     </div>
                 </div>
             @empty
@@ -103,6 +105,33 @@
         </div>
         <div class="row mt-4">
             {{$posts->links('livewire::simple-bootstrap')}}
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal modal-blur fade" id="delete_post" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click='resetForm()'></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+              <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+              <h3>Are you sure?</h3>
+              <div class="text-muted">Do you really want to remove this Post? What you've done cannot be undone.</div>
+            </div>
+            <div class="modal-footer">
+              <div class="w-100">
+                <div class="row">
+                  <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                      Cancel
+                    </a></div>
+                  <div class="col"><a href="#" wire:click.prevent='deletePostAction()' class="btn btn-danger w-100" data-bs-dismiss="modal">
+                      Delete
+                    </a></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 </div>

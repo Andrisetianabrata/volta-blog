@@ -1,5 +1,5 @@
 @extends('back.layouts.pages-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'New Post')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Edit Post')
 @push('stylesheets')
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 @endpush

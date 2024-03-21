@@ -23,5 +23,19 @@
       title: [4, (image, imageData) => `${image.alt} (${imageData.naturalWidth} × ${imageData.naturalHeight})`],
       transition: false
     });
+    
+    var jq = jQuery.noConflict();
+
+    // Use 'jq' instead of '$'
+    window.addEventListener('hideCategoriesModal', function(event){
+      jq('#delete_post').modal('hide');
+    });
+    window.addEventListener('showDeletePostModal', function(event){
+      jq('#delete_post').modal('show');
+    });
+
+    jq('#category_modal, #subcategory_modal, #delete_category, #delete_subcategory').on('hidden.bs.modal', function(event){
+      Livewire.emit('deleteAllForm')
+    });
   </script>
 @endpush

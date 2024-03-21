@@ -59,7 +59,7 @@ class EditPosts extends Component
             $this->validate([
                 'post_thumbnail'=>'mimes:png,jpg,jpeg',
             ]);
-            $data = [$this->oldFile, $this->post_thumbnail];
+            // $data = [$this->oldFile, $this->post_thumbnail];
             // dd($data);
             $fileName = $this->post_thumbnail->getClientOriginalName();
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -81,7 +81,7 @@ class EditPosts extends Component
             $croppedImage = $image->crop($cropWidth, $cropHeight, $x, $y);
             $deletion = Storage::disk('public')->delete('images/thumbnails/'.$this->oldFile);
             $saved = Storage::disk('public')->put('images/thumbnails/'.$thumbnailSlug, $croppedImage->stream());
-            if ($saved) {
+            if ($saved || $deletion) {
                 $this->post->update([
                     'category_id' => $this->post_category,
                     'post_title' => $this->post_title,
@@ -90,6 +90,8 @@ class EditPosts extends Component
                     'thumbnail' => $thumbnailSlug,
                 ]);
                 toastr()->success('Post has been updated.');
+                session()->forget('post_edit_token');
+                redirect(route('author.posts.all-post'));
             }
         }else{
             // dd('gak upload');
@@ -100,8 +102,9 @@ class EditPosts extends Component
                 'post_content' => $this->post_content,
             ]);
             toastr()->success('Post has been updated.');
+            session()->forget('post_edit_token');
+            redirect(route('author.posts.all-post'));
         }
-
     }
     
     public function render()
