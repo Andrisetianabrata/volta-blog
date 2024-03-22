@@ -20,7 +20,7 @@
                   General Settings
                </a>
             </li>
-            {{-- <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation">
                <a href="#tabs-profile-3" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
                   <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -32,7 +32,7 @@
                   </svg>
                   Logo & Favicon
                </a>
-            </li> --}}
+            </li>
             <li class="nav-item" role="presentation">
                <a href="#tabs-social-3" class="nav-link" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">
                   <!-- Download SVG icon from http://tabler-icons.io/i/user -->
@@ -56,7 +56,7 @@
                   @livewire('author-general-settings')
                </div>
             </div>
-            {{-- <div class="tab-pane" id="tabs-profile-3" role="tabpanel">
+            <div class="tab-pane" id="tabs-profile-3" role="tabpanel">
                <div class="mt-3">
                   <div class="mb-3">
                      <div class="row">
@@ -91,7 +91,7 @@
                      </div>
                   </div>
                </div>
-            </div> --}}
+            </div>
             <div class="tab-pane" id="tabs-social-3" role="tabpanel">
              <div>
                 <div class="row">
