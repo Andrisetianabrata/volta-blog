@@ -13,12 +13,12 @@ class Post extends Model
 
     public function author()
     {
-        return $this->hasOne(User::class, 'id', 'author_id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
     public function category()
     {
-        return $this->hasOne(SubCategory::class, 'id', 'category_id');    
+        return $this->belongsTo(SubCategory::class, 'category_id', 'id');    
     }
 
     public function scopeSearch($query, $term){
