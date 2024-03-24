@@ -54,13 +54,12 @@ class EditPosts extends Component
             'post_title'=>'required|unique:posts,post_title,'.$this->postId,
             'post_content'=>'required',
             'post_category'=>'required|exists:sub_categories,id',
+            // 'post_thumbnail'=>'mimes:png,jpg,jpeg|max:2048',
         ]);
         if ($this->post_thumbnail != $this->post->thumbnail) {
             $this->validate([
-                'post_thumbnail'=>'mimes:png,jpg,jpeg',
+                'post_thumbnail'=>'mimes:png,jpg,jpeg|max:2048',
             ]);
-            // $data = [$this->oldFile, $this->post_thumbnail];
-            // dd($data);
             $fileName = $this->post_thumbnail->getClientOriginalName();
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
             $thumbnailSlug = uniqid().'-'.Str::slug(pathinfo($fileName, PATHINFO_FILENAME)).'.'.$extension;

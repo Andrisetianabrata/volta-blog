@@ -1,18 +1,4 @@
 <div>
-    {{-- @dd($authors) --}}
-    <?php
-        if (!function_exists('shortTitle')) {
-            function shortTitle($title) {
-                if (strlen($title) > 33) {
-                    return substr($title, 0, 30) . '...';
-                } else {
-                    return $title;
-                }
-            }
-            
-        }
-
-    ?>
     <div class="row g-2 align-items-center mb-3">
         <div class="col">
             <h2 class="page-title">
@@ -71,7 +57,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             {{-- <h2 class="m-0 mb-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 550px;"><a target="_blank" href="#">{{$post->post_title}}</a></h2> --}}
-                            <h4 class="m-0 mb-2 post-title"><a target="_blank" href="#">{{shortTitle($post->post_title)}}</a></h4>
+                            <h4 class="m-0 mb-2 post-title"><a target="_blank" href="{{route('read-post', $post->post_slug)}}">{{shortTitle($post->post_title)}}</a></h4>
                         </div>
                         @if (isset($post->category->parentCategory->category_name))
                         <span class="badge bg-orange-lt mb-2">{{$post->category->parentCategory->category_name}}</span>
@@ -81,7 +67,12 @@
                         <span class="avatar me-3 rounded" style="background-image: url({{$post->author->picture}})"></span>
                         <div>
                             <div>{{$post->author->name}}</div>
-                            <div class="text-muted">{{$post->created_at->diffForHumans()}}</div>
+                            @if ($post->created_at->diffInHours() <= 24)
+                                <div class="text-muted">{{$post->created_at->diffForHumans()}}</div>
+                            @else
+                                <small class="text-muted">{{dateFormat($post->created_at)}}</small>
+                            @endif
+                            {{-- <h6><small class="text-muted">{{$post->created_at->isoFormat('LL')}}</small> <span class="badge bg-purple-lt">{{$post->created_at->diffForHumans()}}</span></h6> --}}
                         </div>
                         </div>
                     </div>
@@ -134,4 +125,5 @@
           </div>
         </div>
     </div>
+    {{$posts->appends(request()->input())->links('admin-paginate')}}
 </div>

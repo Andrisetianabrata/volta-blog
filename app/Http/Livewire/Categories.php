@@ -78,6 +78,7 @@ class Categories extends Component
         $subCategory = new SubCategory();
         $subCategory->subcategory_name = $this->subcategory_name;
         $subCategory->parent_category = $this->parent_category;
+        $subCategory->slug = Str::slug($this->subcategory_name);;
         $saved = $subCategory->save();
         if ($saved) {
             $this->dispatchBrowserEvent('hideSubCategoriesModal');
@@ -179,8 +180,8 @@ class Categories extends Component
     public function render()
     {
         return view('livewire.categories', [
-            'categories' => Category::orderBy('ordering', 'asc')->get(),
-            'subCategories' => SubCategory::orderBy('ordering', 'asc')->get(),
+            'categories' => Category::orderBy('created_at', 'asc')->get(),
+            'subCategories' => SubCategory::orderBy('created_at', 'asc')->get(),
         ]);
     }
 }

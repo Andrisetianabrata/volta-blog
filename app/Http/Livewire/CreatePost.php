@@ -23,7 +23,7 @@ class CreatePost extends Component
             'post_title'=>'required|unique:posts,post_title',
             'post_content'=>'required',
             'post_category'=>'required|exists:sub_categories,id',
-            'post_thumbnail'=>'required|mimes:jpeg,jpg,png',
+            'post_thumbnail'=>'required|mimes:jpeg,jpg,png|max:2048',
         ]);
         
         $fileName = $this->post_thumbnail->getClientOriginalName();
