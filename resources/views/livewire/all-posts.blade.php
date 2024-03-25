@@ -94,9 +94,9 @@
                 <span class="text-danger">No post(s) found</span>
             @endforelse
         </div>
-        <div class="row mt-4">
+        {{-- <div class="row mt-4">
             {{$posts->links('livewire::simple-bootstrap')}}
-        </div>
+        </div> --}}
     </div>
 
     <div wire:ignore.self class="modal modal-blur fade" id="delete_post" tabindex="-1" role="dialog" aria-hidden="true">
