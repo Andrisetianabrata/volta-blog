@@ -8,13 +8,13 @@
           <div class="row align-items-center">
             <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url({{url($author->picture)}})"></span>
             </div>
-            <div class="col-auto">
+            <div class="col-auto mt-3">
               <input type="file" name='file' id='changeAuthorPictureFile' class="d-none" onchange="this.dispatchEvent(new InputEvent('input'))">
               <a href="#" class="btn" onclick="event.preventDefault();document.getElementById('changeAuthorPictureFile').click();">
               Change Avatar
               </a>
             </div>
-            <div class="col-auto"><button href="" wire:click.prevent='deleteAuthorPictureFile' class="btn btn-ghost-danger">
+            <div class="col-auto mt-3"><button href="" wire:click.prevent='deleteAuthorPictureFile' class="btn btn-ghost-danger">
               Delete avatar
               </button>
             </div>
