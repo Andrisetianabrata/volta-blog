@@ -19,12 +19,16 @@ class UserUniqueFilesFolder
     public function handle(Request $request, Closure $next) : Response
     {
         if (Auth::check()) {
-            $folderName =  Auth::user()->username.'-folder';
-            // dd($folderName);
-            if (!Storage::disk('public')->exists($folderName)) {
-                Storage::disk('public')->makeDirectory($folderName, 0755, true, true);
+            if (Auth::user()->type == 1) {
+                Config::set('elfinder.dir', ["storage"]);
+            }else{
+                $folderName =  Auth::user()->username.'-folder';
+                // dd($folderName);
+                if (!Storage::disk('public')->exists($folderName)) {
+                    Storage::disk('public')->makeDirectory($folderName, 0755, true, true);
+                }
+                Config::set('elfinder.dir', ["storage/$folderName"]);
             }
-            Config::set('elfinder.dir', ["storage/$folderName"]);
         }
         return $next($request);
     }
