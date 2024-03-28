@@ -9,7 +9,7 @@
         <div class="col-lg-8 mb-5 mb-lg-0">
           
           <article>
-            <img loading="lazy" decoding="async" src="./storage/images/thumbnails/{{$post->thumbnail}}" alt="Post Thumbnail" class="w-100">
+            <img loading="lazy" id="thumbnail" decoding="async" src="./storage/images/thumbnails/{{$post->thumbnail}}" alt="Post Thumbnail" class="w-100">
             <ul class="post-meta mb-2 mt-4">
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-right:5px;margin-top:-4px" class="text-dark" viewBox="0 0 16 16">
@@ -72,3 +72,22 @@
   </section>
 </main>
 @endsection
+@push('script')
+  <script>
+    // Pilih semua elemen img
+    const images = document.querySelectorAll('img:not([id])');
+
+    // Iterasi melalui setiap elemen img
+    images.forEach(function(img) {
+      // Hapus atribut style
+      
+      // Tambahkan class 'w-100 h-100' jika belum ada
+      if (!img.classList.contains('w-100')) {
+        img.removeAttribute('style');
+        img.classList.add('w-100', 'h-100');
+        img.setAttribute('loading', 'lazy')
+        img.setAttribute('decoding', 'async')
+      }
+    });
+  </script>
+@endpush

@@ -30,6 +30,7 @@
     <link href="./prism.css" rel="stylesheet" />
     <!-- # Main Style Sheet -->
     <link rel="stylesheet" href="./front/css/style.css">
+    @stack('style')
   </head>
   <body class="match-braces rainbow-braces treeview">
     {{-- <header data-plugin-header="download-button autolinker line-numbers show-language normalize-whitespace match-braces rainbow-braces treeview"></header> --}}
@@ -42,5 +43,6 @@
     <!-- Main Script -->
     <script src="./front/js/script.js"></script>
     <script src="prism.js"></script>
+    @stack('script')
   </body>
 </html>

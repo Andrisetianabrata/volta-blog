@@ -2,7 +2,7 @@
    <div class="container">
      <nav class="navbar navbar-expand-lg navbar-light px-0">
        <a class="navbar-brand order-1 py-0" href="/">
-       <img loading="prelaod" decoding="async" class="img-fluid" src="./back/dist/img/logo-favicon/logo-1.png" style="max-width: 100px;" alt="{{blogInfo()->blog_name}}">
+       <img loading="prelaod" id="logo" decoding="async" class="img-fluid" src="./back/dist/img/logo-favicon/logo-1.png" style="max-width: 100px;" alt="{{blogInfo()->blog_name}}">
        </a>
        <div class="navbar-actions order-3 ml-0 ml-md-4">
          <button aria-label="navbar toggler" class="navbar-toggler border-0" type="button" data-toggle="collapse"
