@@ -13,49 +13,54 @@ class AllPost extends Controller
     {
         if (!$slug) {
             return abort(404);
-        }else{
+        } else {
             $subCategory = SubCategory::where('slug', $slug)->first();
             if (!$subCategory) {
                 return abort(404);
             } else {
                 $posts = Post::where('category_id', $subCategory->id)
-                             ->orderBy('created_at', 'desc')
-                             ->paginate(6);
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(6);
 
                 $data = [
-                    'pageTitle' => 'Category - '.$subCategory->subcategory_name,
+                    'pageTitle' => 'Category - ' . $subCategory->subcategory_name,
                     'category' => $subCategory,
                     'posts' => $posts,
                 ];
 
-                return view('front.pages.category-posts', $data);    
+                return view('front.pages.category-posts', $data);
             }
         }
     }
 
-    public function tagsPost($slug)
+    public function tagsPost(Request $request, $slug)
     {
-        $category = Category::where('slug', $slug)->first();
-        $subCategories = $category->subCategories;
-        $posts = Post::whereHas('category', function ($query) use ($subCategories) {
-            $query->whereIn('id', $subCategories->pluck('id'));
-        })->orWhere('category_id', $category->id)->paginate(8);
+        if (!$slug) {
+            return abort(404);
+        } else {
+            $category = Category::where('slug', $slug)->first();
+            $subCategories = $category->subCategories;
+            
+            $posts = Post::whereHas('category', function ($query) use ($subCategories) {
+                $query->whereIn('id', $subCategories->pluck('id'));
+            })->paginate(8);
 
-        $data = [
-            'posts' => $posts,
-            'category' => $category,
-            'subCategories' => $subCategories,
-        ];
-        
-        return view('front.pages.tags-posts', $data);
+            $data = [
+                'posts' => $posts,
+                'category' => $category,
+                'subCategories' => $subCategories,
+            ];
+
+            return view('front.pages.tags-posts', $data);
+        }
     }
 
     public function allPosts()
     {
         $subCategory = SubCategory::all();
         $posts = Post::with(['author', 'category'])
-               ->orderBy('created_at', 'desc')
-               ->paginate(6);
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
 
         $data = [
             'category' => $subCategory,
@@ -72,7 +77,6 @@ class AllPost extends Controller
             'post' => $post,
         ];
         // return dd($data);
-        return view('front.pages.content-post', $data);    
+        return view('front.pages.content-post', $data);
     }
-    
 }

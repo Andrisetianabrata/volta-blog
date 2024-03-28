@@ -30,7 +30,11 @@
                   </a>
                   <div class="card-body px-0 pb-0">
                     <ul class="post-meta mb-2">
-                      <li> <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
+                      <li> 
+                        <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
+                        @if (isset($post->category->parentCategory->slug))
+                          <a href="{{route('tags-post', $post->category->parentCategory->slug)}}">{{$post->category->parentCategory->category_name}}</a>
+                        @endif
                       </li>
                     </ul>
                     <h2>

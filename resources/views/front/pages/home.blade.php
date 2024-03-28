@@ -28,7 +28,9 @@
                   <ul class="post-meta mb-2">
                     <li> 
                       <a href="{{route('category-post', singleLatestPost()->category->slug)}}">{{singleLatestPost()->category->subcategory_name}}</a>
-                      <a href="{{route('tags-post', singleLatestPost()->category->parentCategory->slug)}}">{{singleLatestPost()->category->parentCategory->category_name}}</a>
+                      @if (isset(singleLatestPost()->category->parentCategory->slug))
+                        <a href="{{route('tags-post', singleLatestPost()->category->parentCategory->slug)}}">{{singleLatestPost()->category->parentCategory->category_name}}</a>
+                      @endif
                       {{-- <a href="#!">news</a> --}}
                     </li>
                   </ul>
@@ -59,7 +61,9 @@
                       <ul class="post-meta mb-2">
                         <li> 
                           <a href="{{route('category-post', $posts->category->slug)}}">{{$posts->category->subcategory_name}}</a>
-                          <a href="{{route('tags-post', $posts->category->parentCategory->slug)}}">{{$posts->category->parentCategory->category_name}}</a>
+                          @if (isset($posts->category->parentCategory->slug))
+                            <a href="{{route('tags-post', $posts->category->parentCategory->slug)}}">{{$posts->category->parentCategory->category_name}}</a>
+                          @endif
                         </li>
                       </ul>
                       <h2>

@@ -9,7 +9,9 @@
         <div class="col-12">
           <div class="breadcrumbs mb-4"> <a href="{{route('home')}}">Home</a>
             <span class="mx-1">/</span>  <a href="{{route('articles')}}">Articles</a>
-            <span class="mx-1">/</span>  <a href="{{route('tags-post', $category->parentCategory->slug)}}">{{$category->parentCategory->category_name}}</a>
+            @if (isset($category->parentCategory->slug))
+              <span class="mx-1">/</span>  <a href="{{route('tags-post', $category->parentCategory->slug)}}">{{$category->parentCategory->category_name}}</a>
+            @endif
             <span class="mx-1">/</span>  <a href="/">{{$category->subcategory_name}}</a>
           </div>
           <h1 class="mb-4 border-bottom border-primary d-inline-block">{{$category->subcategory_name}}</h1>

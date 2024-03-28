@@ -34,7 +34,9 @@
                         <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
                       </li>
                       <li> 
-                        <a href="{{route('tags-post', $post->category->parentCategory->slug)}}">{{$post->category->parentCategory->category_name}}</a>
+                        @if (isset($post->category->parentCategory->slug))
+                          <a href="{{route('tags-post', $post->category->parentCategory->slug)}}">{{$post->category->parentCategory->category_name}}</a>
+                        @endif
                       </li>
                     </ul>
                     <h2>
