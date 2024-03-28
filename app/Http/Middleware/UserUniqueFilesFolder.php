@@ -22,7 +22,7 @@ class UserUniqueFilesFolder
             if (Auth::user()->type == 1) {
                 Config::set('elfinder.dir', ["storage"]);
             }else{
-                $folderName =  Auth::user()->username.'-folder';
+                $folderName =  Auth::user()->email.'-folder';
                 // dd($folderName);
                 if (!Storage::disk('public')->exists($folderName)) {
                     Storage::disk('public')->makeDirectory($folderName, 0755, true, true);
