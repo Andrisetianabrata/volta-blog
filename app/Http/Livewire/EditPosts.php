@@ -22,10 +22,19 @@ class EditPosts extends Component
     public function mount()
     {
         $receivedToken = request()->token; // Token yang diterima dari URL
-
-        if (session('post_edit_token') == $receivedToken) {
-            if (auth()->user()->type != 1) {
-                if (auth()->user()->id == request()->author_id) {
+        if (session('post_edit_token')) {
+            if (session('post_edit_token') == $receivedToken) {
+                if (auth()->user()->type != 1) {
+                    if (auth()->user()->id == request()->author_id) {
+                        $this->postId = request()->post_id;
+                        $this->post = Post::find($this->postId);
+                        $this->post_category = $this->post->category_id;
+                        $this->post_thumbnail = $this->post->thumbnail;
+                        $this->post_title = $this->post->post_title;
+                        $this->post_content = $this->post->post_content;
+                        $this->oldFile = $this->post_thumbnail;
+                    }
+                }else{
                     $this->postId = request()->post_id;
                     $this->post = Post::find($this->postId);
                     $this->post_category = $this->post->category_id;
@@ -34,17 +43,11 @@ class EditPosts extends Component
                     $this->post_content = $this->post->post_content;
                     $this->oldFile = $this->post_thumbnail;
                 }
-            }else{
-                $this->postId = request()->post_id;
-                $this->post = Post::find($this->postId);
-                $this->post_category = $this->post->category_id;
-                $this->post_thumbnail = $this->post->thumbnail;
-                $this->post_title = $this->post->post_title;
-                $this->post_content = $this->post->post_content;
-                $this->oldFile = $this->post_thumbnail;
+            } else {
+                abort(403, 'Unauthorized action.');
             }
-        } else {
-            abort(403, 'Unauthorized action.');
+        }else {
+            abort(404);
         }
     }
     
