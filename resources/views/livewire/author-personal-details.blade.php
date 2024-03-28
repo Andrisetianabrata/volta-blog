@@ -14,6 +14,11 @@
               Change Avatar
               </a>
             </div>
+            <div class="col-auto mt-3">
+              <a href="#" class="btn btn-ghost-lime" data-bs-toggle="modal" data-bs-target="#upload_banner">
+              Upload Banner
+              </a>
+            </div>
             <div class="col-auto mt-3"><button href="" wire:click.prevent='deleteAuthorPictureFile' class="btn btn-ghost-danger">
               Delete avatar
               </button>
@@ -220,4 +225,53 @@
       </div>
     </div>
   </div>
+
+  <div wire:ignore.self class="modal modal-blur fade" id="upload_banner" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Banner</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <div class="form-label">Banner</div>
+            <input type="file" class="form-control" wire:model="user_banner" accept="image/jpeg, image/png">
+            @error('user_banner')<span class="text-danger">{{$message}}</span><br>@enderror
+            <span class="small text-indigo">Tips: 2:1 Aspect ratio image</span>
+         </div>
+         <div class="col-6 mb-3" wire:ignore>
+            <div class="img-responsive img-responsive-2x1 rounded-3 border" style="background-image: url(./storage/images/banner/{{$author->banner}})"></div>
+         </div>
+        </div>
+        <div class="modal-footer">
+          <div class="col-sm g-2">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-ghost-danger" wire:click.prevent='deleteBanner' data-bs-dismiss="modal">Delete</button>
+          </div>
+          <button type="button" class="btn btn-primary" wire:click.prevent='uploadBanner'">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Mengambil referensi dari input file dan div yang akan menampilkan gambar
+    const fileInput = document.querySelector('.form-control[type="file"]');
+    const imageDisplay = document.querySelector('.img-responsive');
+    
+    // Fungsi untuk mengubah tampilan gambar
+    function updateImageDisplay() {
+      const files = fileInput.files;
+      if (files.length > 0) {
+        const file = files[0];
+        const imageUrl = URL.createObjectURL(file);
+    
+        // Mengatur gambar sebagai background div
+        imageDisplay.style.backgroundImage = `url(${imageUrl})`;
+      }
+    }
+    
+    // Menambahkan event listener untuk merespon saat file dipilih
+    fileInput.addEventListener('change', updateImageDisplay);
+  </script>
 </div>

@@ -67,5 +67,9 @@
   window.addEventListener('hideChangePassword', function(event){
     jq('#change_password').modal('hide');
   });
+  var jq = jQuery.noConflict();
+  window.addEventListener('hideUploadBannerModal', function(event){
+    jq('#upload_banner').modal('hide');
+  });
 </script>
 @endpush

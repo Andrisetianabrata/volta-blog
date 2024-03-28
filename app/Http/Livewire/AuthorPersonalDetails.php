@@ -4,14 +4,19 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 // use Livewire\Livewire;
 
 
 class AuthorPersonalDetails extends Component
 {
+    use WithFileUploads;
     public $author;
-    public $name, $username, $email, $birth, $city, $biography;
+    public $name, $username, $email, $birth, $city, $biography, $user_banner;
     protected $listeners = ['updateAuthorProfileHeader' => '$refresh'];
     public $current_password, $new_password, $confirm_password;
     
@@ -94,6 +99,56 @@ class AuthorPersonalDetails extends Component
         }
     }
 
+    public function uploadBanner()
+    {
+        $this->validate([
+            'user_banner'=>'required|mimes:jpeg,jpg,png|max:2048',
+        ]);
+        $user = User::find(auth('web')->id());
+        $oldFile = 'images/banner/'.$user->banner;
+
+        $fileName = $this->user_banner->getClientOriginalName();
+        $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+        $thumbnailSlug = $user->username.'-'.uniqid().'-'.Str::slug(pathinfo($fileName, PATHINFO_FILENAME)).'.'.$extension;
+        
+        $image = Image::make($this->user_banner);
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+
+        $aspectRatio = 2 / 1;
+        $cropWidth = $width;
+        $cropHeight = round($cropWidth / $aspectRatio);
+        if ($cropHeight > $height) {
+            $cropHeight = $height;
+            $cropWidth = $cropHeight * $aspectRatio;
+        }
+
+        $x = round(($width - $cropWidth) / 2);
+        $y = round(($height - $cropHeight) / 2);
+        $croppedImage = $image->crop($cropWidth, $cropHeight, $x, $y);
+        $saved = Storage::disk('public')->put('images/banner/'.$thumbnailSlug, $croppedImage->stream());
+        Storage::disk('public')->delete($oldFile);
+        if ($saved) {
+            $user->update([
+                'banner' => $thumbnailSlug
+            ]);
+            toastr()->success('Yayy banner upload success');
+            $this->dispatchBrowserEvent('hideUploadBannerModal');
+        }else{
+            toastr()->error('Opps somthing wrong');
+        }
+    }
+    
+    public function deleteBanner()
+    {
+        $user = User::find(auth('web')->id());
+        
+        $user->update([
+            'banner' => null
+        ]);
+        toastr()->success('Banner delete success');
+    }
+    
     public function render()
     {
         return view('livewire.author-personal-details');
