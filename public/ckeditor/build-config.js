@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/bbd3f0b26f65e15fcc646ebc6f84370b
+ * (2) https://ckeditor.com/cke4/builder/a0a552186c40c4c1e1d9bc41cb1c76c3
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/bbd3f0b26f65e15fcc646ebc6f84370b
+ * (3) https://ckeditor.com/cke4/builder/download/a0a552186c40c4c1e1d9bc41cb1c76c3
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'office2013',
+	skin: 'moono-lisa',
 	preset: 'full',
 	ignore: [
 		'.DS_Store',
@@ -61,6 +61,8 @@ var CKBUILDER_CONFIG = {
 		'bidi' : 1,
 		'blockquote' : 1,
 		'clipboard' : 1,
+		'codeTag' : 1,
+		'codemirror' : 1,
 		'codesnippet' : 1,
 		'colorbutton' : 1,
 		'colordialog' : 1,
@@ -72,6 +74,7 @@ var CKBUILDER_CONFIG = {
 		'elementspath' : 1,
 		'enterkey' : 1,
 		'entities' : 1,
+		'eqneditor' : 1,
 		'exportpdf' : 1,
 		'filebrowser' : 1,
 		'find' : 1,
@@ -90,8 +93,8 @@ var CKBUILDER_CONFIG = {
 		'link' : 1,
 		'list' : 1,
 		'liststyle' : 1,
+		'loremipsum' : 1,
 		'magicline' : 1,
-		'mathedit' : 1,
 		'maximize' : 1,
 		'newpage' : 1,
 		'pagebreak' : 1,
@@ -110,7 +113,7 @@ var CKBUILDER_CONFIG = {
 		'showblocks' : 1,
 		'showborders' : 1,
 		'smiley' : 1,
-		'sourcearea' : 1,
+		'sourcedialog' : 1,
 		'specialchar' : 1,
 		'stylescombo' : 1,
 		'tab' : 1,
