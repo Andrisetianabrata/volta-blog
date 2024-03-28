@@ -18,5 +18,6 @@ Route::view('/', 'front.pages.home')->name('home');
 Route::get('/articles', [AllPost::class, 'allPosts'])->name('articles');
 Route::get('/article/{slug}', [AllPost::class, 'readPost'])->name('read-post');
 Route::get('/category/{slug}', [AllPost::class, 'categoryPost'])->name('category-post');
+Route::get('/tags/{slug}', [AllPost::class, 'tagsPost'])->name('tags-post');
 Route::get('/post/tag/{slug}', [AllPost::class, 'tagPost'])->name('tag-post');
 Route::get('/search', [AllPost::class, 'searchPosts'])->name('search-posts');

@@ -26,7 +26,9 @@
                 </a>
                 <div class="card-body px-0 pb-1">
                   <ul class="post-meta mb-2">
-                    <li> <a href="{{route('category-post', singleLatestPost()->category->slug)}}">{{singleLatestPost()->category->subcategory_name}}</a>
+                    <li> 
+                      <a href="{{route('category-post', singleLatestPost()->category->slug)}}">{{singleLatestPost()->category->subcategory_name}}</a>
+                      <a href="{{route('tags-post', singleLatestPost()->category->parentCategory->slug)}}">{{singleLatestPost()->category->parentCategory->category_name}}</a>
                       {{-- <a href="#!">news</a> --}}
                     </li>
                   </ul>
@@ -55,7 +57,9 @@
                     </a>
                     <div class="card-body px-0 pb-0">
                       <ul class="post-meta mb-2">
-                        <li> <a href="#!">{{$posts->category->subcategory_name}}</a>
+                        <li> 
+                          <a href="{{route('category-post', $posts->category->slug)}}">{{$posts->category->subcategory_name}}</a>
+                          <a href="{{route('tags-post', $posts->category->parentCategory->slug)}}">{{$posts->category->parentCategory->category_name}}</a>
                         </li>
                       </ul>
                       <h2>

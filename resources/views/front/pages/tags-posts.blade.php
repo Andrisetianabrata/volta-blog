@@ -1,17 +1,17 @@
-{{-- @dd($category[1]->slug) --}}
+{{-- @dd($subCategories) --}}
 @extends('front.layout.pages-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Articles')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Categories')
 @section('content-main')
 <main>
   <section class="section">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <div class="breadcrumbs mb-4"><a href="/">Home</a>
-            <span class="mx-1">/</span><a href="/">Articles</a>
-            {{-- <span class="mx-1">/</span><a href="/">{{$category->subcategory_name}}</a> --}}
+          <div class="breadcrumbs mb-4"> <a href="{{route('home')}}">Home</a>
+            <span class="mx-1">/</span>  <a href="{{route('articles')}}">Articles</a>
+            <span class="mx-1">/</span>  <a href="{{route('home')}}">{{$category->category_name}}</a>
           </div>
-          <h1 class="mb-4 border-bottom border-primary d-inline-block">Articles</h1>
+          <h1 class="mb-4 border-bottom border-primary d-inline-block">{{$category->category_name}}</h1>
         </div>
 
         <div class="col-lg-8 mb-5 mb-lg-0">
@@ -30,11 +30,7 @@
                   </a>
                   <div class="card-body px-0 pb-0">
                     <ul class="post-meta mb-2">
-                      <li> 
-                        <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
-                      </li>
-                      <li> 
-                        <a href="{{route('tags-post', $post->category->parentCategory->slug)}}">{{$post->category->parentCategory->category_name}}</a>
+                      <li> <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
                       </li>
                     </ul>
                     <h2>

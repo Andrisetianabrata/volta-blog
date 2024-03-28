@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,23 @@ class AllPost extends Controller
                 return view('front.pages.category-posts', $data);    
             }
         }
+    }
+
+    public function tagsPost($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $subCategories = $category->subCategories;
+        $posts = Post::whereHas('category', function ($query) use ($subCategories) {
+            $query->whereIn('id', $subCategories->pluck('id'));
+        })->orWhere('category_id', $category->id)->paginate(8);
+
+        $data = [
+            'posts' => $posts,
+            'category' => $category,
+            'subCategories' => $subCategories,
+        ];
+        
+        return view('front.pages.tags-posts', $data);
     }
 
     public function allPosts()

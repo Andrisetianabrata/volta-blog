@@ -29,6 +29,7 @@ class Categories extends Component
 
         $category = new Category();
         $category->category_name = $this->category_name;
+        $category->slug = Str::slug($this->category_name);
         $saved = $category->save();
         if ($saved) {
             toastr()->success('Yayy new Category created');
@@ -56,6 +57,7 @@ class Categories extends Component
 
             $category = Category::findOrFail($this->selected_category_id);
             $category->category_name = $this->category_name;
+            $category->slug = Str::slug($this->category_name);
             $update = $category->save();
             if ($update) {
                 toastr()->success('Yayy category has been updated');
@@ -78,7 +80,7 @@ class Categories extends Component
         $subCategory = new SubCategory();
         $subCategory->subcategory_name = $this->subcategory_name;
         $subCategory->parent_category = $this->parent_category;
-        $subCategory->slug = Str::slug($this->subcategory_name);;
+        $subCategory->slug = Str::slug($this->subcategory_name);
         $saved = $subCategory->save();
         if ($saved) {
             $this->dispatchBrowserEvent('hideSubCategoriesModal');
