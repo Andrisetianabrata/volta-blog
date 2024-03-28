@@ -65,7 +65,7 @@
           
         </div>
 
-        @include('front.inc.side-bar')
+        @include('front.inc.side-bar', ['id' => $post->author->id])
 
       </div>
     </div>

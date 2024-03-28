@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Models\Setting;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 if (!function_exists('blogInfo')) {
   function blogInfo()
@@ -13,6 +14,12 @@ if (!function_exists('blogInfo')) {
   }
 }
 
+if (!function_exists('userInfo')) {
+  function userInfo($id)
+  {
+    return User::findOrFail($id);
+  }
+}
 
 if (!function_exists('shortTitle')) {
   function shortTitle($title, $value = 45) {

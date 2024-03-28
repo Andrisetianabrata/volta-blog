@@ -4,9 +4,9 @@
       <div class="col-lg-12">
         <div class="widget">
           <div class="widget-body">
-            <img loading="lazy" decoding="async" src="./front/images/author.jpg" alt="About Me" class="w-100 author-thumb-sm d-block">
-            <h2 class="widget-title my-3">Hootan Safiyari</h2>
-            <p class="mb-3 pb-2">Hello, I’m Hootan Safiyari. A Content writter, Developer and Story teller. Working as a Content writter at CoolTech Agency. Quam nihil …</p>
+            <img loading="lazy" decoding="async" src="./storage/images/banner/{{userInfo($id)->banner}}" alt="About Me" class="w-100 author-thumb-sm d-block">
+            <h2 class="widget-title my-3">{{userInfo($id)->name}}</h2>
+            <p class="mb-3 pb-2">{!!wordsExcerpt(userInfo($id)->biography)!!}</p>
             <a href="about.html" class="btn btn-sm btn-outline-primary">Know
             More</a>
           </div>

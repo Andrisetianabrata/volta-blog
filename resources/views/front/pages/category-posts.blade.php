@@ -64,7 +64,7 @@
           </div>
         </div>
 
-        @include('front.inc.side-bar')
+        @include('front.inc.side-bar', ['id' => 1])
       </div>
     </div>
   </section>
