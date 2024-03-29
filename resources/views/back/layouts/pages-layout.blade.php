@@ -29,7 +29,6 @@
 		<link rel="stylesheet" href="/back/dist/libs/viewerjs/dist/viewer.css"/>
     <script src="/back/dist/libs/viewerjs/dist/viewer.min.js"></script>
     <link href="./prism.css" rel="stylesheet" />
-    <script src="./ckeditor/ckeditor.js"></script>
     {{-- <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> --}}
   </head>
   <body class="line-numbers" >
