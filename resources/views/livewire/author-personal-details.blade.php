@@ -108,8 +108,14 @@
           <p class="card-subtitle">Your story or your quote will be display here.</p>
           <div>
             <div class="row g-1">
-              <div class="">
-                <textarea class="form-control" name="biograpy" rows="6" placeholder="Here tell us your story >_<" style="height: 165px;" wire:model='biography' wire:model='biograpy'></textarea>
+              <div class="" wire:ignore>
+                <textarea class="form-control" id="biograpy" rows="6" placeholder="Here tell your story / moto 💖">
+                  @if ($author->biography != null)
+                  {!!$author->biography!!}
+                  @else
+                  {{'Here tell your story / moto 💖'}}
+                  @endif
+                </textarea>
               </div>
             </div>
           </div>
@@ -273,5 +279,14 @@
     
     // Menambahkan event listener untuk merespon saat file dipilih
     fileInput.addEventListener('change', updateImageDisplay);
+
+    // CKEDITOR.replace( 'post_content' );
+    $(document).ready(function(){
+       const editor = CKEDITOR.replace( 'biograpy' );
+       editor.on('change', function(event){
+        //  console.log(event.editor.getData());
+         @this.set('biography', event.editor.getData());
+       }); 
+     })
   </script>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -22,7 +23,7 @@ class UserUniqueFilesFolder
             if (Auth::user()->type == 1) {
                 Config::set('elfinder.dir', ["storage"]);
             }else{
-                $folderName =  Auth::user()->email.'-folder';
+                $folderName =  Str::slug(str_replace(['@', '.'],'-',Auth::user()->email)).'-folder';
                 // dd($folderName);
                 if (!Storage::disk('public')->exists($folderName)) {
                     Storage::disk('public')->makeDirectory($folderName, 0755, true, true);

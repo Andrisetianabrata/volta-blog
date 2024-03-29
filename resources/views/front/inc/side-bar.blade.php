@@ -7,7 +7,7 @@
             <img loading="lazy" decoding="async" src="./storage/images/banner/{{userInfo($id)->banner}}" alt="About Me" class="w-100 author-thumb-sm d-block">
             <h2 class="widget-title my-3">{{userInfo($id)->name}}</h2>
             <p class="mb-3 pb-2">{!!wordsExcerpt(userInfo($id)->biography)!!}</p>
-            <a href="about.html" class="btn btn-sm btn-outline-primary">Know
+            <a href="{{route('about',userInfo($id)->username)}}" class="btn btn-sm btn-outline-primary">Know
             More</a>
           </div>
         </div>

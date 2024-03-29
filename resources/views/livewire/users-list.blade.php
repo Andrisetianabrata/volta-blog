@@ -62,7 +62,8 @@
             @endforelse
          </div>
          <div class="row mt-4">
-            {{$users->links('livewire::simple-bootstrap')}}
+            {{-- {{$users->links('livewire::simple-bootstrap')}} --}}
+            {{$users->appends(request()->input())->links('admin-paginate')}}
          </div>
       </div>
 
