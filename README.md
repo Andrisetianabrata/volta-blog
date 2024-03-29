@@ -4,7 +4,7 @@
    
    Pertama, Anda perlu meng-clone repo Laravel dari GitHub. Anda bisa melakukannya dengan perintah berikut di terminal Anda:
 
-   ```sh
+   ```bash
    git clone https://github.com/Andrisetianabrata/volta-blog.git
    ```
 
@@ -17,14 +17,14 @@
 3. **Setup Environment**
    
    Copy file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database dan lainnya sesuai kebutuhan Anda:
-   ```sh
+   ```bash
    cp .env.example .env
    ```
 
 4. **Generate Key**
    
    Laravel memerlukan key aplikasi untuk enkripsi dan lainnya. Anda bisa generate key ini dengan perintah:
-   ```sh
+   ```bash
    php artisan key:generate
    ```
 
@@ -33,10 +33,17 @@
    Jika Anda memiliki migrasi database, jalankan migrasi dengan perintah:
    php artisan migrate
 
-6. **Jalankan Server**
+6. **Storage Link**
+   
+   Penting untok linking `Public Storage` guna penyimpanan blog kedepanya:
+   ```bash
+   php artisan storage:link
+   ```
+
+7. **Jalankan Server**
    
    Akhirnya, Anda bisa menjalankan server Laravel dengan perintah:
-   ```sh
+   ```bash
    php artisan serve
    ```
    Sekarang, Laravel Anda harus berjalan di `http://localhost:8000`.
