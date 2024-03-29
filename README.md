@@ -31,9 +31,14 @@
 5. **Migrate Database**
    
    Jika Anda memiliki migrasi database, jalankan migrasi dengan perintah:
-   php artisan migrate
+   `php artisan migrate`
 
-6. **Jalankan Server**
+6. **Storage Link**
+
+   Untuk linking `Public Storage` penting:
+   `php artisan storage:link`
+
+7. **Jalankan Server**
    
    Akhirnya, Anda bisa menjalankan server Laravel dengan perintah:
    ```sh
