@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use ReturnTypeWillChange;
 
 class AuthorController extends Controller
 {
@@ -32,6 +33,7 @@ class AuthorController extends Controller
             return response()->json(['status' => 0, 'msg' => 'Something went wrong, try again later']);
         }
     }
+
     public function index(Request $request)
     {
         return view('back.pages.home', [
@@ -103,6 +105,7 @@ class AuthorController extends Controller
             toastr()->error("File type must be png, jpg, jpeg.");
         }
     }
+
     public function changeBlogFavicon(Request $request){
         $path = 'back/dist/img/logo-favicon/';
         if (!File::exists(public_path($path))) {
@@ -117,5 +120,22 @@ class AuthorController extends Controller
         }else{
             return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
         }   
+    }
+
+    public function about($userName)
+    {
+        $user = User::where('username', $userName)->first();
+
+        if (!$user) {
+            abort(404, 'User tidak ditemukan.');
+        }
+        $posts = Post::whereHas('author', function ($query) use ($user) {
+            $query->where('id', $user->id);
+        })->paginate(8);
+
+        return view('front.pages.about', [
+            'user' => $user,
+            'posts' => $posts,
+        ]);
     }
 }

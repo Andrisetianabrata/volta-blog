@@ -24,7 +24,7 @@
             <ul class="post-meta mb-4">
               <li> <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
               </li>
-              <li> <a href="{{route('category-post', $post->category->slug)}}">{{$post->author->name}}</a>
+              <li> <a href="{{route('about', $post->author->username)}}">{{$post->author->name}}</a>
               </li>
             </ul>
 

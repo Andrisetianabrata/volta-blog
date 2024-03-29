@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AllPost;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'front.pages.home')->name('home');
+Route::get('/about/{username}',[AuthorController::class, 'about'])->name('about');
 Route::get('/articles', [AllPost::class, 'allPosts'])->name('articles');
 Route::get('/article/{slug}', [AllPost::class, 'readPost'])->name('read-post');
 Route::get('/category/{slug}', [AllPost::class, 'categoryPost'])->name('category-post');

@@ -6,7 +6,7 @@
          <img loading="prelaod" id="logo" decoding="async" class="img-fluid" src="./back/dist/img/logo-favicon/logo-white-1.png" style="max-width: 100px;" alt="{{blogInfo()->blog_name}}">
          </a>
          <ul class="p-0 d-flex navbar-footer mb-0 list-unstyled">
-           <li class="nav-item my-0"> <a class="nav-link" href="about.html">About</a></li>
+           <li class="nav-item my-0"> <a class="nav-link" href="/about/{{userInfo(1)->username}}">About</a></li>
            <li class="nav-item my-0"> <a class="nav-link" href="article.html">Elements</a></li>
            <li class="nav-item my-0"> <a class="nav-link" href="privacy-policy.html">Privacy Policy</a></li>
            <li class="nav-item my-0"> <a class="nav-link" href="terms-conditions.html">Terms Conditions</a></li>
