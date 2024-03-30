@@ -1,4 +1,4 @@
-{{-- @dd($category[1]->slug) --}}
+{{-- @dd($category) --}}
 @extends('front.layout.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Articles')
 @section('content-main')
@@ -51,7 +51,7 @@
             @empty
             <div class="col-md-6 mb-4">
               <div class="notices info">
-                <span class=" text-danger">No post(s) for {{$category->subcategory_name}} Category</span>
+                  <span class=" text-danger">No post(s)</span>
               </div>
             </div>
             @endforelse
