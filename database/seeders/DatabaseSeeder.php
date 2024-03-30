@@ -16,16 +16,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // User::factory()->create([
+        //     'name' => 'Andri Setianabrata',
+        //     'username' => 'bratas',
+        //     'type' => 1
+        // ]);
+        // User::factory()->create([
+        //     'type' => 2
+        // ]);
+        // User::factory()->create([
+        //     'type' => 3
+        // ]);
         Type::factory()->create([
-            'name' => 'Admin / Owner',
+            'name' => 'Owner / Super Admin'
+        ]);
+        Type::factory()->create([
+            'name' => 'Admin',
         ]);
         Type::factory()->create([
             'name' => 'Author',
         ]);
-        User::factory(1)->create([
-            'type' => 1
-        ]);
-        User::factory(2)->create();
 
         // Setting::factory(1)->create();
         // Post::factory(120)->create();

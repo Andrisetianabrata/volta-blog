@@ -13,7 +13,7 @@
       <div class="col-auto ms-auto d-print-none">
          <div class="d-flex">
             <input type="search" class="form-control d-inline-block w-9 me-3" placeholder="Search user…" wire:model='search'>
-            <button href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user" {{($isAdmin->authorType->id) == 1 ? '' : 'disabled'}} >
+            <button href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_user" {{($isAdmin->authorType->id) == 3 ? 'disabled' : ''}} >
             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
             New user
@@ -32,24 +32,27 @@
                   @if ($user->blocked == 1)
                      <div class="ribbon bg-red">Blocked</div>
                   @endif
-                  @if ($user->authorType->id == 1 && $user->blocked != 1)
+                  @if ($user->authorType->id == 2 && $user->blocked != 1)
                      <div class="ribbon bg-green">Admin</div>
+                  @endif
+                  @if ($user->authorType->id == 1 && $user->blocked != 1)
+                     <div class="ribbon bg-orange">Owner</div>
                   @endif
                   <div class="card-body p-4 text-center">
                      <img class="avatar avatar-xl mb-3 rounded" src="{{$user->picture}}"></img>
                      <h3 class="m-0 mb-1">{{$user->name}}</h3>
                      <div class="text-muted">{{'@'}}{{$user->username}}</div>
                      <div class="mt-3">
-                        <span class="badge {{ ($user->authorType->id == 1) ? 'bg-purple-lt' : 'bg-green-lt' }}">{{$user->authorType->name}}</span>
+                        <span class="badge {{ ($user->authorType->id == 1) ? 'bg-orange-lt' : (($user->authorType->id == 2) ? (($user->blocked == 1) ? 'bg-red-lt' : 'bg-green-lt') : (($user->blocked == 1) ? 'bg-red-lt' : 'bg-blue-lt')) }}">{{$user->authorType->name}}</span>
                      </div>
                   </div>
                   <div class="d-flex">
-                     <a href="#" wire:click.prevent='editUser({{$user}})' class="card-btn" style="pointer-events: {{($user->id == 1 || $isAdmin->authorType->id != 1) ? 'none' : ''}}">
+                     <a href="#" wire:click.prevent='editUser({{$user}})' class="card-btn" style="pointer-events: {{($user->authorType->id == 1  || $isAdmin->authorType->id == 3) || ($user->authorType->id == auth('web')->id()) ? 'none' : ''}}">
                         <!-- Download SVG icon from http://tabler-icons.io/i/mail -->
                         <svg class="icon me-2 text-muted" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                         Edit
                      </a>
-                     <a href="#" class="card-btn text-danger" wire:click.prevent='deleteUser({{$user}})' style="pointer-events: {{($user->id == 1 || $isAdmin->authorType->id != 1) ? 'none' : ''}}">
+                     <a href="#" class="card-btn text-danger" wire:click.prevent='deleteUser({{$user}})' style="pointer-events: {{($user->authorType->id == 1  || $isAdmin->authorType->id == 3) || ($user->authorType->id == auth('web')->id()) ? 'none' : ''}}">
                         <!-- Download SVG icon from http://tabler-icons.io/i/phone -->
                         <svg class="icon me-2 text-danger" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                         Delete
@@ -122,6 +125,22 @@
                            </span>
                            </label>
                         </div>
+                        @if ($isAdmin->authorType->id == 1)
+                        <div class="col mt-3">
+                           <label class="form-selectgroup-item">
+                           <input type="radio" name="user_type" value="1" class="form-selectgroup-input" checked wire:model='user_type'>
+                           <span class="form-selectgroup-label d-flex align-items-center p-3">
+                           <span class="me-3">
+                           <span class="form-selectgroup-check"></span>
+                           </span>
+                           <span class="form-selectgroup-label-content">
+                           <span class="form-selectgroup-title strong mb-1">Owner</span>
+                           <span class="d-block text-muted">Post, edit and delete own article. And some aditional Settings</span>
+                           </span>
+                           </span>
+                           </label>
+                        </div>
+                        @endif
                         <span class="text-danger">@error('user_type') {{$message}} @enderror</span>
       
                      </div>
@@ -173,7 +192,7 @@
                   <div class="form-selectgroup-boxes row mb-3">
                      <div class="col-lg-6">
                         <label class="form-selectgroup-item">
-                        <input type="radio" name="user_type" value="1" class="form-selectgroup-input" wire:model='user_type'>
+                        <input type="radio" name="user_type" value="2" class="form-selectgroup-input" wire:model='user_type'>
                         <span class="form-selectgroup-label d-flex align-items-center p-3">
                         <span class="me-3">
                         <span class="form-selectgroup-check"></span>
@@ -187,7 +206,7 @@
                      </div>
                      <div class="col-lg-6">
                         <label class="form-selectgroup-item">
-                        <input type="radio" name="user_type" value="2" class="form-selectgroup-input" checked wire:model='user_type'>
+                        <input type="radio" name="user_type" value="3" class="form-selectgroup-input" checked wire:model='user_type'>
                         <span class="form-selectgroup-label d-flex align-items-center p-3">
                         <span class="me-3">
                         <span class="form-selectgroup-check"></span>
@@ -199,16 +218,32 @@
                         </span>
                         </label>
                      </div>
+                     @if ($isAdmin->authorType->id == 1)
+                     <div class="col mt-3">
+                        <label class="form-selectgroup-item">
+                        <input type="radio" name="user_type" value="1" class="form-selectgroup-input" checked wire:model='user_type'>
+                        <span class="form-selectgroup-label d-flex align-items-center p-3">
+                        <span class="me-3">
+                        <span class="form-selectgroup-check"></span>
+                        </span>
+                        <span class="form-selectgroup-label-content">
+                        <span class="form-selectgroup-title strong mb-1">Owner</span>
+                        <span class="d-block text-muted">Post, edit and delete own article. And some aditional Settings</span>
+                        </span>
+                        </span>
+                        </label>
+                     </div>
+                     @endif
                      <span class="text-danger">@error('user_type') {{$message}} @enderror</span>
                      <div class="mb-3 mt-3">
                         <div class="form-label">Block</div>
                         <label class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" wire:model='blocked'>
-                          <span class="form-check-label">Block or Ban user</span>
+                           <input class="form-check-input" type="checkbox" wire:model='blocked'>
+                           <span class="form-check-label">Block or Ban user</span>
                         </label>
-                      </div>
                      </div>
-                  </form>
+                  </div>
+               </form>
                </div>
                <div class="modal-footer mt-4">
                   <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal" wire:click='resetForm()'>

@@ -72,7 +72,7 @@ class AllPosts extends Component
   public function render()
   {
     return view('livewire.all-posts', [
-      'posts' => auth()->user()->type == 1 ?
+      'posts' => auth()->user()->type != 3 ?
         Post::search(trim($this->search))
         ->when($this->categorySelecor, function ($query) {
           $query->where('category_id', $this->categorySelecor);

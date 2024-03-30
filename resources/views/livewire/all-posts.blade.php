@@ -44,7 +44,7 @@
                 @endforeach
             </select>
         </div>
-        @if ($userType == 1)
+        @if ($userType != 3)
             <div class="col-md-2 mb-3">
                 <label for="" class="form-label">Author</label>
                 <select class="form-select" wire:model='authorSelecor'>
