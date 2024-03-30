@@ -35,7 +35,8 @@ class AllPost extends Controller
 
     public function tagsPost(Request $request, $slug)
     {
-        if (!$slug) {
+        $category = Category::where('slug', $slug)->first();
+        if (!$slug || $category == null) {
             return abort(404);
         } else {
             $category = Category::where('slug', $slug)->first();

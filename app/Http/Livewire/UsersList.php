@@ -55,10 +55,10 @@ class UsersList extends Component
         $user_name = $this->name;
 
         if ($saved) {
-            // Mail::send('new-user-mail-template', $data, function ($message) use ($user_email, $user_name) {
-            //     $message->from('noreply@example.com', 'VOLTA');
-            //     $message->to($user_email, $user_name)->subject('New Account');
-            // });
+            Mail::send('new-user-mail-template', $data, function ($message) use ($user_email, $user_name) {
+                $message->from('noreply@example.com', 'VOLTA');
+                $message->to($user_email, $user_name)->subject('New Account');
+            });
             toastr()->success('Yayy new User has been created.');
             $this->name = $this->username = $this->email = $this->user_type = null;
             $this->resetErrorBag();
