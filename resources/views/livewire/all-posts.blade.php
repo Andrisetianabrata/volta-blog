@@ -11,7 +11,7 @@
     <div class="row g-2 align-items-center mb-4">
         <div class="col">
             <h2 class="page-title">
-            Dashboard
+            Posts
             </h2>
         </div>
         <div class="col-auto ms-auto d-print-none">

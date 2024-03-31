@@ -27,17 +27,17 @@ class DatabaseSeeder extends Seeder
         // User::factory()->create([
         //     'type' => 3
         // ]);
-        Type::factory()->create([
-            'name' => 'Owner / Super Admin'
-        ]);
-        Type::factory()->create([
-            'name' => 'Admin',
-        ]);
-        Type::factory()->create([
-            'name' => 'Author',
-        ]);
+        // Type::factory()->create([
+        //     'name' => 'Owner / Super Admin'
+        // ]);
+        // Type::factory()->create([
+        //     'name' => 'Admin',
+        // ]);
+        // Type::factory()->create([
+        //     'name' => 'Author',
+        // ]);
 
         // Setting::factory(1)->create();
-        // Post::factory(120)->create();
+        Post::factory(10)->create();
     }
 }

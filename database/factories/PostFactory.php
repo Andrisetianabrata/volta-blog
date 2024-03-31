@@ -19,7 +19,7 @@ class PostFactory extends Factory
     {
         $title = $this->faker->sentence(mt_rand(4, 7));
         return [
-            'author_id' => mt_rand(1,2),
+            'author_id' => mt_rand(1,3),
             'category_id' => mt_rand(1,3),
             'post_title' => $title,
             'post_slug' => Str::slug($title),
