@@ -24,8 +24,10 @@
             <ul class="post-meta mb-4">
               <li> <a href="{{route('category-post', $post->category->slug)}}">{{$post->category->subcategory_name}}</a>
               </li>
+              @if (isset($post->author->username))
               <li> <a href="{{route('about', $post->author->username)}}">{{$post->author->name}}</a>
               </li>
+              @endif
             </ul>
 
             <div class="content text-left">
@@ -65,7 +67,7 @@
           
         </div>
 
-        @include('front.inc.side-bar', ['id' => $post->author->id])
+        @include('front.inc.side-bar', ['id' => isset($post->author->id) ? $post->author->id : $users->id])
 
       </div>
     </div>

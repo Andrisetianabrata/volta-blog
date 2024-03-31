@@ -80,9 +80,9 @@
                         @endif
                         <span class="badge bg-blue-lt mb-2">{{$post->category->subcategory_name}}</span>
                         <div class="d-flex align-items-center">
-                        <span class="avatar me-3 rounded" style="background-image: url({{$post->author->picture}})"></span>
+                        <span class="avatar me-3 rounded" style="background-image: url({{isset($post->author->picture) ? $post->author->picture : 'DL'}})"></span>
                         <div>
-                            <div>{{$post->author->name}}</div>
+                            <div>{{isset($post->author->name) ? $post->author->name : 'Deleted Account'}}</div>
                             @if ($post->created_at->diffInHours() <= 24)
                                 <div class="text-muted">{{$post->created_at->diffForHumans()}}</div>
                             @else

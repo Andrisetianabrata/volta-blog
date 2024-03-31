@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AllPost extends Controller
@@ -76,6 +77,7 @@ class AllPost extends Controller
         $data = [
             'pageTitle' => $post->post_title,
             'post' => $post,
+            'users' => User::inRandomOrder()->first()
         ];
         // return dd($data);
         return view('front.pages.content-post', $data);
