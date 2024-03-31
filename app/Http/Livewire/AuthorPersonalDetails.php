@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -105,7 +106,7 @@ class AuthorPersonalDetails extends Component
             'user_banner'=>'required|mimes:jpeg,jpg,png|max:2048',
         ]);
         $user = User::find(auth('web')->id());
-        $oldFile = 'images/banner/'.$user->banner;
+        $oldFile = 'images/banner/'.DB::table('users')->where('id', auth('web')->id())->value('banner');
 
         $fileName = $this->user_banner->getClientOriginalName();
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -142,10 +143,12 @@ class AuthorPersonalDetails extends Component
     public function deleteBanner()
     {
         $user = User::find(auth('web')->id());
+        $oldFile = 'images/banner/'.DB::table('users')->where('id', auth('web')->id())->value('banner');
         
         $user->update([
             'banner' => null
         ]);
+        Storage::disk('public')->delete($oldFile);
         toastr()->success('Banner delete success');
     }
     

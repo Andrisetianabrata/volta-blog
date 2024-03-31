@@ -53,6 +53,16 @@ class User extends Authenticatable
         }
     }
 
+    public function getBannerAttribute($value)
+    {
+        if ($value) {
+            return asset('/storage/images/banner/' . $value);
+        } else {
+            return asset('back/dist/img/authors/banner/banner.jpg');
+        }
+    }
+
+
     public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function($query) use ($term){

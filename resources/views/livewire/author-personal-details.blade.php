@@ -247,7 +247,7 @@
             <span class="small text-indigo">Tips: 2:1 Aspect ratio image</span>
          </div>
          <div class="col-6 mb-3" wire:ignore>
-            <div class="img-responsive img-responsive-2x1 rounded-3 border" style="background-image: url(./storage/images/banner/{{$author->banner}})"></div>
+            <div class="img-responsive img-responsive-2x1 rounded-3 border" style="background-image: url({{$author->banner}})"></div>
          </div>
         </div>
         <div class="modal-footer">

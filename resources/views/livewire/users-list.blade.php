@@ -99,7 +99,7 @@
                      <div class="form-selectgroup-boxes row mb-3">
                         <div class="col-lg-6">
                            <label class="form-selectgroup-item">
-                           <input type="radio" name="user_type" value="1" class="form-selectgroup-input" wire:model='user_type'>
+                           <input type="radio" name="user_type" value="2" class="form-selectgroup-input" wire:model='user_type'>
                            <span class="form-selectgroup-label d-flex align-items-center p-3">
                            <span class="me-3">
                            <span class="form-selectgroup-check"></span>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-lg-6">
                            <label class="form-selectgroup-item">
-                           <input type="radio" name="user_type" value="2" class="form-selectgroup-input" checked wire:model='user_type'>
+                           <input type="radio" name="user_type" value="3" class="form-selectgroup-input" checked wire:model='user_type'>
                            <span class="form-selectgroup-label d-flex align-items-center p-3">
                            <span class="me-3">
                            <span class="form-selectgroup-check"></span>

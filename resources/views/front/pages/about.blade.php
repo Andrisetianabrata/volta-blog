@@ -8,12 +8,13 @@
       <div class="row">
         <div class="col-8">
           <div class="breadcrumbs mb-4"> <a href="/">Home</a>
-            <span class="mx-1">/</span>  <a href="/about">About</a>
+            <span class="mx-1">/</span> <a href="/about-list">About</a>
+            <span class="mx-1">/</span> <a href="">{{$user->name}}</a>
           </div>
         </div>
         <div class="col-lg-8 mb-5 mb-lg-0">
           <div class="mb-5">
-            <img id="thumb" decoding="async" src="./storage/images/banner/{{$user->banner}}" class="img-fluid w-100 mb-4" alt="Author Image">
+            <img id="thumb" decoding="async" src="{{$user->banner}}" class="img-fluid w-100 mb-4" alt="Author Image">
             <h1 class="mb-4 mt-3">{{$user->name}}</h1>
             <div class="content">
               {!!$user->biography!!}

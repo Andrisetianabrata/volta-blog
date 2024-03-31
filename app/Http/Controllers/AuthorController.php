@@ -121,21 +121,4 @@ class AuthorController extends Controller
             return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
         }   
     }
-
-    public function about($userName)
-    {
-        $user = User::where('username', $userName)->first();
-
-        if (!$user) {
-            abort(404, 'User tidak ditemukan.');
-        }
-        $posts = Post::whereHas('author', function ($query) use ($user) {
-            $query->where('id', $user->id);
-        })->paginate(8);
-
-        return view('front.pages.about', [
-            'user' => $user,
-            'posts' => $posts,
-        ]);
-    }
 }
