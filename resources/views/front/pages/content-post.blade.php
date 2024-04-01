@@ -102,7 +102,7 @@
   <script>
     $("body").floatingSocialShare({
       buttons: [ // all of the currently available social buttons
-        "mail", "facebook","pinterest", "telegram", "twitter", "whatsapp"
+        "facebook", "telegram", "twitter", "whatsapp"
       ],
       title: document.title, // your title, default is current page's title
       url: window.location.href,  // your url, default is current page's url
