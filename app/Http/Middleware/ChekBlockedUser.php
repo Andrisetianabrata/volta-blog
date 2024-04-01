@@ -20,7 +20,9 @@ class ChekBlockedUser
             $blocked =  Auth::user()->blocked;
             // dd($blocked);
             if ($blocked) {
-                auth()->logout();
+                Auth::logout();
+                return redirect()->route('author.login');
+                // abort(403, 'Your account has been blocked');
             }
         }
         return $next($request);
