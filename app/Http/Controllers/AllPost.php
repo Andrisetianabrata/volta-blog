@@ -82,4 +82,29 @@ class AllPost extends Controller
         // return dd($data);
         return view('front.pages.content-post', $data);
     }
+
+    public function searchPosts(Request $reques)
+    {
+        $query = request()->query('query');
+        $searchValue = preg_split('/\s+/', $query, -1, PREG_SPLIT_NO_EMPTY);
+        $posts = Post::query();
+
+        $posts->where(function($q) use ($searchValue) {
+            foreach ($searchValue as $value) {
+                $q->orWhere('post_title', 'LIKE', "%{$value}%");
+            } 
+        });
+
+        $posts = $posts->with('category')
+                        ->with('author')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(8);
+        $data = [
+            'pageTitle' => 'Search For '. request()->query('query'),
+            'query' => request()->query('query'),
+            'posts' => $posts
+        ];
+
+        return view('front.pages.search-posts', $data);
+    }
 }
