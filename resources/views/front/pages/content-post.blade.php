@@ -93,3 +93,31 @@
     });
   </script>
 @endpush
+@push('style')
+  <link rel="stylesheet" href="./packages/jQuery-share/dist/jquery.floating-social-share.min.css">
+@endpush
+@push('script')
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="packages/jQuery-share/dist/jquery.floating-social-share.min.js"></script>
+  <script>
+    $("body").floatingSocialShare({
+      buttons: [ // all of the currently available social buttons
+        "mail", "facebook","pinterest", "telegram", "twitter", "whatsapp"
+      ],
+      title: document.title, // your title, default is current page's title
+      url: window.location.href,  // your url, default is current page's url
+      text: { // the title of tags
+        'default': 'share with ', 
+        'facebook': 'share with facebook', 
+        'twitter': 'tweet'
+      },
+      text_title_case: false, // if set true, then will convert share texts to title case like Share With G+
+      description: $('meta[name="description"]').attr("content"), // your description, default is current page's description
+      media: $('meta[property="og:image"]').attr("content"), // pinterest media
+      target: true, // open share pages, such as Twitter and Facebook share pages, in a new tab
+      popup: true, // open links in popup
+      popup_width: 700, // the sharer popup width, default is 400px
+      popup_height: 500 // the sharer popup height, default is 300px
+    });
+  </script>
+@endpush
