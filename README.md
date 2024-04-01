@@ -11,8 +11,10 @@
 2. **Install Dependencies**
    
    Setelah repo berhasil di-clone, masuk ke direktori proyek dan install dependencies menggunakan Composer:
-   cd repo
+   ```bash
+   cd volta-blog
    composer install
+   ```
 
 3. **Setup Environment**
    
