@@ -282,7 +282,9 @@
 
     // CKEDITOR.replace( 'post_content' );
     $(document).ready(function(){
-       const editor = CKEDITOR.replace( 'biograpy' );
+       const editor = CKEDITOR.replace( 'biograpy', {
+        height: 400
+       } );
        editor.on('change', function(event){
         //  console.log(event.editor.getData());
          @this.set('biography', event.editor.getData());

@@ -11,7 +11,7 @@
           </h1>
           <div class="navbar-nav flex-row order-md-last">
             
-            <div class="d-none d-md-flex">
+            <div class="d-md-flex navbar-brand pr-3">
               <a href="{{ request()->fullUrlWithQuery(['theme' => 'dark']) }}" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Enable dark mode" data-bs-original-title="Enable dark mode">
                 <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></svg>

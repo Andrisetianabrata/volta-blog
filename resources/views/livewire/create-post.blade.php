@@ -58,7 +58,9 @@
   <script>
      // CKEDITOR.replace( 'post_content' );
      $(document).ready(function(){
-       const editor = CKEDITOR.replace( 'post_content' );
+       const editor = CKEDITOR.replace( 'post_content', {
+         height: 450
+       });
        editor.on('change', function(event){
          // console.log(event.editor.getData());
          @this.set('post_content', event.editor.getData());

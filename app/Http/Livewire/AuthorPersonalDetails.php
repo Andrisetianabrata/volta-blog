@@ -102,13 +102,14 @@ class AuthorPersonalDetails extends Component
 
     public function uploadBanner()
     {
-        $this->validate([
-            'user_banner'=>'required|mimes:jpeg,jpg,png|max:2048',
-        ]);
+        // $this->validate([
+        //     'user_banner'=>'mimes:jpeg,jpg,png|max:2048',
+        // ]);
         $user = User::find(auth('web')->id());
         $oldFile = 'images/banner/'.DB::table('users')->where('id', auth('web')->id())->value('banner');
-
+        
         $fileName = $this->user_banner->getClientOriginalName();
+        // dd($fileName);
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
         $thumbnailSlug = $user->username.'-'.uniqid().'-'.Str::slug(pathinfo($fileName, PATHINFO_FILENAME)).'.'.$extension;
         

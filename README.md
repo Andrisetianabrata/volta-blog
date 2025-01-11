@@ -33,7 +33,7 @@
 5. **Migrate Database**
    
    Jika Anda memiliki migrasi database, jalankan migrasi dengan perintah:
-   php artisan migrate
+   ```php artisan migrate```
 
 6. **Storage Link**
    

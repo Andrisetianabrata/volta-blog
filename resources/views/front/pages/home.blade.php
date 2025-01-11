@@ -7,7 +7,7 @@
       <div class="row no-gutters-lg">
         
         <div class="col-12">
-          <h2 class="section-title">Latest Articles</h2>
+          <h2 class="section-title">Article Terbaru</h2>
         </div>
         <div class="col-lg-8 mb-5 mb-lg-0">
           <div class="row">

@@ -25,3 +25,21 @@ Route::get('/category/{slug}', [AllPost::class, 'categoryPost'])->name('category
 Route::get('/tags/{slug}', [AllPost::class, 'tagsPost'])->name('tags-post');
 Route::get('/post/tag/{slug}', [AllPost::class, 'tagPost'])->name('tag-post');
 Route::get('/search', [AllPost::class, 'searchPosts'])->name('search-posts');
+
+Route::get('/tes', function() {
+  try {
+      Artisan::call('storage:link');
+      $output = Artisan::output();
+      return response()->json([
+          'status' => 'success',
+          'message' => 'Storage linked successfully!',
+          'output' => $output
+      ]);
+  } catch (\Exception $e) {
+      return response()->json([
+          'status' => 'error',
+          'message' => 'Failed to link storage.',
+          'error' => $e->getMessage()
+      ], 500);
+  }
+});

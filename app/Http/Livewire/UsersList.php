@@ -56,7 +56,7 @@ class UsersList extends Component
 
         if ($saved) {
             Mail::send('new-user-mail-template', $data, function ($message) use ($user_email, $user_name) {
-                $message->from('noreply@example.com', 'VOLTA');
+                $message->from('no-reply@bratas.my.id', 'VOLTA');
                 $message->to($user_email, $user_name)->subject('New Account');
             });
             toastr()->success('Yayy new User has been created.');

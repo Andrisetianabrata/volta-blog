@@ -11,10 +11,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
 		{ name: 'forms', groups: [ 'forms' ] },
-		'/',
 		{ name: 'links', groups: [ 'links' ] },
 		{ name: 'insert', groups: [ 'insert' ] },
-		'/',
 		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'colors', groups: [ 'colors' ] },
 		{ name: 'tools', groups: [ 'tools' ] },
@@ -22,6 +20,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'About,Sourcedialog,codemirrorAbout';
 	config.filebrowserBrowseUrl = 'elfinder/ckeditor';
+	config.removeButtons = 'About,Sourcedialog,codemirrorAbout,Save,NewPage,ExportPdf,Preview,Print';
 };

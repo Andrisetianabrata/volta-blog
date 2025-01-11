@@ -23,26 +23,44 @@ class AuthorForgotForm extends Component
             'email.exists'=>'Email is not registered',
         ]);
         $token = base64_encode(Str::random(64));
-        DB::table('password_reset_tokens')->insert([
-            'email'=>$this->email,
-            'token'=>$token,
-            'created_at'=>Carbon::now()
-        ]);
+
+        // DB::table('password_reset_tokens')->insert([
+        //     'email'=>$this->email,
+        //     'token'=>$token,
+        //     'created_at'=>Carbon::now()
+        // ]);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $this->email], // where clause
+            [
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]
+        );
+        
+        // Hapus token lama jika ada
+        // DB::table('password_reset_tokens')
+        // ->where('email', $this->email)
+        // ->delete();
+
+        // // Buat token baru
+        // DB::table('password_reset_tokens')->insert([
+        //     'email' => $this->email,
+        //     'token' => $token,
+        //     'created_at' => Carbon::now()
+        // ]);
+        
         $user = User::where('email', $this->email)->first();
         $link = route('author.reset-form', ['token'=>$token, 'email'=>$this->email]);
-        $body_message = 'Kami menerima Request reset password untuk akun <b>VOLTA</b> anda<br>untuk mereset akun anda klik link di bawah ini</br>';
-        $body_message .= '<br>';
-        $body_message .= '<a href="'.$link.'">'.$link.'</a>';
-        $body_message .= '</br>';
-        $body_message .= 'Abaikan email ini jika anda tidak merasa meminta reset password';
+        
 
         $data = array(
             'name'=>$user->name,    
-            'body_message'=>$body_message        
+            'link'=>$link        
         );
 
         Mail::send('forgot-email-template', $data, function($message) use ($user){
-            $message->from('noreply@example.com', 'VOLTA');
+            $message->from('no-reply@bratas.my.id', 'VOLTA');
             $message->to($user->email, $user->name)
                     ->subject('Reset Password');
         });
