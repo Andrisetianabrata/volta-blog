@@ -1,5 +1,10 @@
 {{-- @dd($post->author) --}}
 @extends('front.layout.pages-layout')
+
+@section('ogTitle', $post->post_title)
+@section('ogDescription', Str::limit(strip_tags($post->post_content), 150))
+@section('ogImage', asset('storage/images/thumbnails/' . $post->thumbnail))
+
 @section('pageTitle', isset($pageTitle) ? $pageTitle : '')
 @section('content-main')
 <main>
@@ -74,25 +79,6 @@
   </section>
 </main>
 @endsection
-@push('script')
-  <script>
-    // Pilih semua elemen img
-    const images = document.querySelectorAll('img:not([id])');
-
-    // Iterasi melalui setiap elemen img
-    images.forEach(function(img) {
-      // Hapus atribut style
-      
-      // Tambahkan class 'w-100 h-100' jika belum ada
-      if (!img.classList.contains('w-100')) {
-        img.removeAttribute('style');
-        img.classList.add('w-100', 'h-100');
-        img.setAttribute('loading', 'lazy')
-        img.setAttribute('decoding', 'async')
-      }
-    });
-  </script>
-@endpush
 @push('style')
   <link rel="stylesheet" href="./packages/jQuery-share/dist/jquery.floating-social-share.min.css">
 @endpush
@@ -120,4 +106,49 @@
       popup_height: 500 // the sharer popup height, default is 300px
     });
   </script>
+  <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
 @endpush

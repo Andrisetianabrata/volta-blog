@@ -2,6 +2,9 @@
 @extends('front.layout.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : $user->name)
 @section('content-main')
+@section('ogTitle', $user->name)
+@section('ogDescription', Str::limit(strip_tags($user->biography), 150))
+@section('ogImage', $user->banner))
 <main>
   <section class="section">
     <div class="container">
