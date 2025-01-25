@@ -10,11 +10,12 @@
   <head>
     <meta charset="utf-8">
     <title>@yield('pageTitle')</title>
-    <meta property="og:title" content="@yield('ogTitle', blogInfo()->blog_name)">
+    {{-- <meta property="og:title" content="@yield('ogTitle', blogInfo()->blog_name)">
     <meta property="og:description" content="@yield('ogDescription', blogInfo()->blog_description)">
     <meta property="og:image" content="@yield('ogImage', asset('default-image.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:type" content="article">
+    <meta property="og:type" content="article"> --}}
+    @yield('meta')
     
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
