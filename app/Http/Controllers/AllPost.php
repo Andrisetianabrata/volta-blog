@@ -73,18 +73,6 @@ class AllPost extends Controller
             'category' => $subCategory,
             'posts' => $posts,
         ];
-        SEOMeta::setTitle("Articles");
-        SEOMeta::setDescription("All articles on this website"); 
-        SEOMeta::setCanonical(url()->current());
-
-        JsonLd::setTitle("Articles");
-        JsonLd::setDescription("All articles on this website");
-        
-        OpenGraph::setDescription("All articles on ".url('/')." website");
-        OpenGraph::setTitle("Articles");
-        OpenGraph::setUrl(url()->current());
-        OpenGraph::addProperty('type', 'articles');
-        // OpenGraph::addImage(url(asset('storage/images/thumbnails/' . $post->thumbnail)));
 
         return view('front.pages.all-posts', $data);
     }
@@ -92,27 +80,20 @@ class AllPost extends Controller
     public function readPost(Request $request, $slug)
     {
         $post = Post::where('post_slug', $slug)->first();
-        $data = [
-            'pageTitle' => $post->post_title,
-            'post' => $post,
-            'users' => User::inRandomOrder()->first()
-        ];
-        SEOMeta::setTitle($post->post_title);
-        SEOMeta::setDescription(Str::limit(strip_tags($post->post_content), 150));
-        SEOMeta::setCanonical(url()->current());
+        if (!$post) {
+            abort(404);
+        }
+        else{
 
-        JsonLd::setTitle($post->post_title);
-        JsonLd::setDescription(Str::limit(strip_tags($post->post_content), 150));
-        JsonLd::addImage(url(asset('storage/images/thumbnails/' . $post->thumbnail)));
-        
-        OpenGraph::setDescription(Str::limit(strip_tags($post->post_content), 150));
-        OpenGraph::setTitle($post->post_title);
-        OpenGraph::setUrl(url()->current());
-        OpenGraph::addProperty('type', 'articles');
-        OpenGraph::addImage(url(asset('storage/images/thumbnails/' . $post->thumbnail)));
-
-        // return dd($data);
-        return view('front.pages.content-post', $data);
+            $data = [
+                'pageTitle' => $post->post_title,
+                'post' => $post,
+                'users' => User::inRandomOrder()->first()
+            ];
+    
+            // return dd($data);
+            return view('front.pages.content-post', $data);
+        }
     }
 
     public function searchPosts(Request $reques)
