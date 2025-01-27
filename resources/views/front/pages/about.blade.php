@@ -1,13 +1,9 @@
 {{-- @dd($posts) --}}
 @extends('front.layout.pages-layout')
-{{-- @section('pageTitle', isset($pageTitle) ? $pageTitle : $user->name) --}}
-{{-- @section('ogTitle', $user->name)
+@section('pageTitle', isset($pageTitle) ? $pageTitle : $user->name)
+@section('ogTitle', $user->name)
 @section('ogDescription', Str::limit(strip_tags($user->biography), 150))
-@section('ogImage', $user->banner)) --}}
-@section('meta')
-{!! SEOMeta::generate() !!}
-{!! OpenGraph::generate() !!}
-@endsection
+@section('ogImage', $user->banner))
 @section('content-main')
 <main>
   <section class="section">

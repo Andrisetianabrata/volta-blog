@@ -10,12 +10,11 @@
   <head>
     <meta charset="utf-8">
     <title>@yield('pageTitle')</title>
-    {{-- <meta property="og:title" content="@yield('ogTitle', blogInfo()->blog_name)">
+    <meta property="og:title" content="@yield('ogTitle', blogInfo()->blog_name)">
     <meta property="og:description" content="@yield('ogDescription', blogInfo()->blog_description)">
     <meta property="og:image" content="@yield('ogImage', asset('default-image.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:type" content="article"> --}}
-    @yield('meta')
+    <meta property="og:type" content="article">
     
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -50,6 +49,7 @@
     <!-- Main Script -->
     <script src="./front/js/script.js"></script>
     <script src="prism.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     @stack('script')
   </body>
 </html>

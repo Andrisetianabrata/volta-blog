@@ -1,17 +1,11 @@
 {{-- @dd($post->author) --}}
 @extends('front.layout.pages-layout')
 
-{{-- @section('ogTitle', $post->post_title)
+@section('ogTitle', $post->post_title)
 @section('ogDescription', Str::limit(strip_tags($post->post_content), 150))
-@section('ogImage', asset('storage/images/thumbnails/' . $post->thumbnail)) --}}
+@section('ogImage', asset('storage/images/thumbnails/' . $post->thumbnail))
 
 @section('pageTitle', isset($pageTitle) ? $pageTitle : '')
-@section('meta')
-<!-- Primary Meta Tags -->
-{!! SEOMeta::generate() !!}
-<!-- Open Graph / Facebook -->
-{!! OpenGraph::generate() !!}
-@endsection
 @section('content-main')
 <main>
   <section class="section">

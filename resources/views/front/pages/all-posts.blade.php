@@ -1,10 +1,6 @@
 {{-- @dd($category) --}}
 @extends('front.layout.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Articles')
-@section('meta')
-{!! SEOMeta::generate() !!}
-{!! OpenGraph::generate() !!}
-@endsection
 @section('content-main')
 <main>
   <section class="section">
