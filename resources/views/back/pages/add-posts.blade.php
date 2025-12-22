@@ -1,7 +1,8 @@
 @extends('back.layouts.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'New Post')
 @push('stylesheets')
-<script src="./ckeditor/ckeditor.js"></script>
+{{-- <script src="./ckeditor/ckeditor.js"></script> --}}
+<script src="{{ asset('back/dist/libs/ckeditor/ckeditor.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 @endpush
 @section('pageHeader')

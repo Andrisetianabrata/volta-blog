@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="/back/dist/libs/viewerjs/dist/viewer.css"/>
     <script src="/back/dist/libs/viewerjs/dist/viewer.min.js"></script>
     <script src="./back/dist/libs/ckeditor/ckeditor.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script> --}}
+    <!-- jQuery is loaded globally in the layout; removed local slim build to keep AJAX available for ijaboCropTool -->
     <style>
       .viewer-download {
       color: #fff;
