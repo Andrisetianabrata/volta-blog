@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Setting;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -38,6 +40,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Setting::factory(1)->create();
+        Category::factory(3)->create();
+        SubCategory::factory(6)->create();
         Post::factory(10)->create();
     }
 }

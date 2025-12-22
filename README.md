@@ -33,18 +33,31 @@
 5. **Migrate Database**
    
    Jika Anda memiliki migrasi database, jalankan migrasi dengan perintah:
-   ```php artisan migrate```
+   ```bash
+   php artisan migrate
+   ```
 
-6. **Storage Link**
+6. **Jalankan Seeder**
+   
+   Penting Anda harus melakukan ini sebelum menjalankan server, jalankan seeder dengan perintah:
+   ```bash
+   php artisan db:seed
+   ```
+   Atau jalankan migrate sekaligus seed jika Database anda belum terbentuk:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **Storage Link**
    
    Penting untok linking `Public Storage` guna penyimpanan blog kedepanya:
    ```bash
    php artisan storage:link
    ```
 
-7. **Jalankan Server**
+8. **Jalankan Server**
    
-   Akhirnya, Anda bisa menjalankan server Laravel dengan perintah:
+   Anda bisa menjalankan server Laravel dengan perintah:
    ```bash
    php artisan serve
    ```
