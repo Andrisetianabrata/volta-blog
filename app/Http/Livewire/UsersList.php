@@ -25,14 +25,45 @@ class UsersList extends Component
         $this->name = $this->username = $this->email = $this->user_type = null;
         $this->resetErrorBag();
     }
+
+    private function currentUser()
+    {
+        return auth('web')->user();
+    }
+
+    private function isOwner()
+    {
+        $u = $this->currentUser();
+        return $u && $u->type == 1;
+    }
+
+    private function isAdmin()
+    {
+        $u = $this->currentUser();
+        return $u && $u->type == 2;
+    }
+
+    private function unauthorizedResponse($message = 'You are not authorized to perform this action.')
+    {
+        toastr()->error($message);
+        return false;
+    }
     public function addUser()
     {
+        $current = $this->currentUser();
+        if (!$current || $current->type == 3) {
+            return $this->unauthorizedResponse('You are not allowed to create users.');
+        }
         $this->validate([
             'name' => 'required|max:25',
             'email' => 'required|email|unique:users,email',
             'username' => 'required|unique:users,username|min:3|max:16',
             'user_type' => 'required',
         ]);
+
+        if ($this->user_type == 1 && !$this->isOwner()) {
+            return $this->unauthorizedResponse('Only Owner can create Owner accounts.');
+        }
 
         $default_password = Random::generate(6);
         $user = new User();
@@ -69,13 +100,37 @@ class UsersList extends Component
 
     public function editUser($user)
     {
-        // dd($user);
-        $this->selectedUserId = $user['id'];
-        $this->name = $user['name'];
-        $this->email = $user['email'];
-        $this->username = $user['username'];
-        $this->user_type = $user['type'];
-        $this->blocked = $user['blocked'];
+        $target = User::find($user['id']);
+        if (!$target) {
+            toastr()->error('User not found.');
+            return;
+        }
+
+        $current = $this->currentUser();
+        if (!$current) {
+            return $this->unauthorizedResponse();
+        }
+
+        if ($current->id == $target->id) {
+            return $this->unauthorizedResponse('You cannot edit your own account from here.');
+        }
+
+        if ($this->isOwner()) {
+            // owner can edit others
+        } elseif ($this->isAdmin()) {
+            if (!in_array($target->type, [2,3])) {
+                return $this->unauthorizedResponse('Admins cannot edit Owner accounts.');
+            }
+        } else {
+            return $this->unauthorizedResponse();
+        }
+
+        $this->selectedUserId = $target->id;
+        $this->name = $target->name;
+        $this->email = $target->email;
+        $this->username = $target->username;
+        $this->user_type = $target->type;
+        $this->blocked = $target->blocked;
         $this->dispatchBrowserEvent('showModalEdit');
     }
 
@@ -89,8 +144,36 @@ class UsersList extends Component
         ]);
 
         if ($this->selectedUserId) {
-            $user = User::find($this->selectedUserId);
-            $user->update([
+            $target = User::find($this->selectedUserId);
+            if (!$target) {
+                toastr()->error('User not found.');
+                return;
+            }
+
+            $current = $this->currentUser();
+            if (!$current) {
+                return $this->unauthorizedResponse();
+            }
+
+            if ($current->id == $target->id) {
+                return $this->unauthorizedResponse('You cannot edit your own account from here.');
+            }
+
+            if ($this->isOwner()) {
+                // owner may update
+            } elseif ($this->isAdmin()) {
+                if (!in_array($target->type, [2,3])) {
+                    return $this->unauthorizedResponse('Admins cannot update Owner accounts.');
+                }
+            } else {
+                return $this->unauthorizedResponse();
+            }
+
+            if ($this->user_type == 1 && !$this->isOwner()) {
+                return $this->unauthorizedResponse('Only Owner can set Owner user type.');
+            }
+
+            $target->update([
                 'name' => $this->name,
                 'username' => $this->username,
                 'email' => $this->email,
@@ -105,12 +188,35 @@ class UsersList extends Component
 
     public function deleteUser($users)
     {
-        // dd($this->isOnline());
-        $this->selectedUserId = User::find($users['id']);
-        // dd($users);
+        $target = User::find($users['id']);
+        if (!$target) {
+            toastr()->error('User not found.');
+            return;
+        }
+
+        $current = $this->currentUser();
+        if (!$current) {
+            return $this->unauthorizedResponse();
+        }
+
+        if ($current->id == $target->id) {
+            return $this->unauthorizedResponse('You cannot delete your own account.');
+        }
+
+        if ($this->isOwner()) {
+            // owner may delete
+        } elseif ($this->isAdmin()) {
+            if (!in_array($target->type, [2,3])) {
+                return $this->unauthorizedResponse('Admins cannot delete Owner accounts.');
+            }
+        } else {
+            return $this->unauthorizedResponse();
+        }
+
         $path = 'back/dist/img/authors/';
-        $this->selectedUserPicture = $this->selectedUserId->getAttributes()['picture'];
-        $this->selectedFullPath = $path.$this->selectedUserPicture;
+        $this->selectedUserPicture = $target->getAttributes()['picture'];
+        $this->selectedFullPath = $path . $this->selectedUserPicture;
+        $this->selectedUserId = $target; // keep model for delete action
 
         $this->dispatchBrowserEvent('showDeleteUser');
     }
@@ -118,6 +224,33 @@ class UsersList extends Component
     public function deleteUserAction()
     {
         $user = $this->selectedUserId;
+        if (is_numeric($user)) {
+            $user = User::find($user);
+        }
+        if (!$user) {
+            toastr()->error('User not found.');
+            return;
+        }
+
+        $current = $this->currentUser();
+        if (!$current) {
+            return $this->unauthorizedResponse();
+        }
+
+        if ($current->id == $user->id) {
+            return $this->unauthorizedResponse('You cannot delete your own account.');
+        }
+
+        if ($this->isOwner()) {
+            // allowed
+        } elseif ($this->isAdmin()) {
+            if (!in_array($user->type, [2,3])) {
+                return $this->unauthorizedResponse('Admins cannot delete Owner accounts.');
+            }
+        } else {
+            return $this->unauthorizedResponse();
+        }
+
         $user->delete();
         if ($this->selectedUserPicture != null || File::exists(public_path($this->selectedFullPath))) {
             File::delete(public_path($this->selectedFullPath));
@@ -133,7 +266,7 @@ class UsersList extends Component
             'users' => User::search(trim($this->search))
                         ->orderBy('type', 'ASC')
                         ->paginate($this->perpage),
-            // 'userSelectedDelete' => User::find()
+            'currentUser' => auth('web')->user(),
         ]);
     }
 }

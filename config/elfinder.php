@@ -26,7 +26,10 @@ return array(
     |    ]
     */
     'disks' => [
-
+        'public' => [
+            'URL' => env('APP_URL').'/storage',
+            'alias' => 'Public Storage',
+        ],
     ],
 
     /*

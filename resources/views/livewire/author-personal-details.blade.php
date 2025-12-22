@@ -280,15 +280,14 @@
     // Menambahkan event listener untuk merespon saat file dipilih
     fileInput.addEventListener('change', updateImageDisplay);
 
-    // CKEDITOR.replace( 'post_content' );
-    $(document).ready(function(){
-       const editor = CKEDITOR.replace( 'biograpy', {
-        height: 400
-       } );
-       editor.on('change', function(event){
-        //  console.log(event.editor.getData());
-         @this.set('biography', event.editor.getData());
-       }); 
-     })
+    // Initialize CKEditor once DOM is ready (no jQuery dependency)
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof CKEDITOR !== 'undefined') {
+        const editor = CKEDITOR.replace('biograpy', { height: 400 });
+        editor.on('change', function (event) {
+          @this.set('biography', event.editor.getData());
+        });
+      }
+    });
   </script>
 </div>
