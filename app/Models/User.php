@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -47,7 +48,7 @@ class User extends Authenticatable
     public function getPictureAttribute($value)
     {
         if ($value) {
-            return asset('back/dist/img/authors/' . $value);
+            return Storage::disk('public')->url('authors/' . $value);
         } else {
             return asset('back/dist/img/authors/default-avatar.jpg');
         }
