@@ -102,9 +102,9 @@ class AuthorPersonalDetails extends Component
 
     public function uploadBanner()
     {
-        $this->validate([
-            'user_banner'=>'required|mimes:jpeg,jpg,png|max:2048',
-        ]);
+        // $this->validate([
+        //     'user_banner'=>'mimes:jpeg,jpg,png|max:2048',
+        // ]);
         $user = User::find(auth('web')->id());
         $oldFile = 'images/banner/'.DB::table('users')->where('id', auth('web')->id())->value('banner');
         

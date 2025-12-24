@@ -6,7 +6,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use ReturnTypeWillChange;
 
@@ -15,66 +14,23 @@ class AuthorController extends Controller
 
     public function changeAuthorPictureFile(Request $request)
     {
-        try {
-            \Log::error('Avatar upload attempt', [
-                'method' => $request->method(),
-                'files' => $request->allFiles(),
-                'inputs' => $request->except('file'),
-                'has_file' => $request->hasFile('file'),
+        $user = User::find(auth('web')->id());
+
+        $path = 'back/dist/img/authors/';
+        if (!File::exists(public_path($path))) {
+            File::makeDirectory(public_path($path), 0777, true);
+        }
+        $file = $request->file('file');
+        $new_image_name = 'user-' . $user->username . date('-Ymd') . uniqid() . '.jpg';
+        $upload = $file->move(public_path($path), $new_image_name);
+
+        if ($upload) {
+            $user->update([
+                'picture' => $new_image_name
             ]);
-
-            $user = User::find(auth('web')->id());
-            if (!$user) {
-                return response()->json(['status' => 0, 'msg' => 'User not found']);
-            }
-
-            // Use Laravel Storage (public disk) to store author avatars
-            $path = 'authors'; // stored under storage/app/public/authors
-            if (!\Storage::disk('public')->exists($path)) {
-                \Storage::disk('public')->makeDirectory($path);
-            }
-
-            $file = $request->file('file');
-            if (!$file) {
-                \Log::error('No file in request');
-                return response()->json(['status' => 0, 'msg' => 'No file uploaded']);
-            }
-
-            \Log::error('File info', [
-                'name' => $file->getClientOriginalName(),
-                'size' => $file->getSize(),
-                'mime' => $file->getMimeType(),
-                'path' => $file->getRealPath(),
-            ]);
-
-            $extension = $file->getClientOriginalExtension() ?: 'jpg';
-            $new_image_name = 'user-' . $user->username . date('-Ymd') . uniqid() . '.' . $extension;
-
-            // Store file on the public disk
-            $upload = $file->storeAs($path, $new_image_name, 'public');
-
-            if ($upload) {
-                // Update user's picture (we store filename only)
-                $user->update([
-                    'picture' => $new_image_name
-                ]);
-
-                \Log::error('File uploaded successfully', [
-                    'filename' => $new_image_name,
-                    'storage_path' => $upload,
-                    'exists' => \Storage::disk('public')->exists($path . '/' . $new_image_name),
-                ]);
-
-                return response()->json(['status' => 1, 'msg' => 'Image has been updated successfully. Reload your browser', 'name' => $new_image_name]);
-            } else {
-                \Log::error('File store failed');
-                return response()->json(['status' => 0, 'msg' => 'Failed to store file']);
-            }
-        } catch (\Exception $e) {
-            \Log::error('Avatar upload exception: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString()
-            ]);
-            return response()->json(['status' => 0, 'msg' => 'Error: ' . $e->getMessage()]);
+            return response()->json(['status' => 1, 'msg' => 'Image has been updated successfully. Reload your browser', 'name' => $new_image_name]);
+        } else {
+            return response()->json(['status' => 0, 'msg' => 'Something went wrong, try again later']);
         }
     }
 
